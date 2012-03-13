@@ -1,5 +1,5 @@
 module Langue
-  class Japanese
+  module Japanese
     module Logging
       def null_logger
         return NullLogger.new unless Object.const_defined?(:Fluent)

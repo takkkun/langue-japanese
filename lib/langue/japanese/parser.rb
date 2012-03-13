@@ -5,7 +5,7 @@ require 'langue/japanese/morpheme'
 require 'langue/japanese/logging'
 
 module Langue
-  class Japanese
+  module Japanese
     class Parser
       include Logging
 

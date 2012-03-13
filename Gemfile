@@ -4,4 +4,4 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'langue',     :git => File.expand_path('~/dev/langue'), :branch => 'develop'
-gem 'mecab-ruby', :git => 'git://github.com/eitoball/mecab-ruby.git'
+gem 'mecab-ruby', :git => 'git://github.com/takkkun/mecab-ruby.git'
