@@ -1,9 +1,12 @@
 require 'langue/japanese/words/noun'
 require 'langue/japanese/words/classifier'
+require 'langue/japanese/words/with_prefix'
 
 module Langue
   module Japanese
     class AdjectiveNoun < Noun
+      include WithPrefix
+
       class << self
         include Classifier
 
@@ -54,6 +57,14 @@ module Langue
           next_size = take(morphemes, index + size)
           next_size > 0 ? size + next_size : 0
         end
+      end
+
+      protected
+
+      def take_prefix
+        size = 0
+        size += 1 while self.class.noun_prefix?(morphemes, size)
+        size
       end
     end
   end

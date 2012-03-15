@@ -72,3 +72,36 @@ describe Langue::Japanese::Adjective, '.take' do
     }
   end
 end
+
+describe Langue::Japanese::Adjective, '#text' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+  end
+
+  it 'returns the text without the prefix' do
+    @word.text.should == '可愛い'
+  end
+end
+
+describe Langue::Japanese::Adjective, '#prefix' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+  end
+
+  it 'returns the prefix' do
+    @word.prefix.should == 'くそ真っ'
+  end
+end
+
+describe Langue::Japanese::Adjective, '#full_text' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+  end
+
+  it 'returns the text with the prefix' do
+    @word.full_text.should == 'くそ真っ可愛い'
+  end
+end

@@ -1,9 +1,12 @@
 require 'langue/word'
 require 'langue/japanese/words/classifier'
+require 'langue/japanese/words/with_prefix'
 
 module Langue
   module Japanese
     class Verb < Word
+      include WithPrefix
+
       class << self
         include Classifier
 
@@ -59,6 +62,20 @@ module Langue
           size += 1 while auxiliary_verb?(morphemes, index + size)
           size
         end
+      end
+
+      protected
+
+      def take_prefix
+        size = 0
+
+        if self.class.verb_prefix?(morphemes, size)
+          size += 1 while self.class.verb_prefix?(morphemes, size)
+        elsif self.class.noun_prefix?(morphemes, size)
+          size += 1 while self.class.noun_prefix?(morphemes, size)
+        end
+
+        size
       end
     end
   end

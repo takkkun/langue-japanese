@@ -137,3 +137,42 @@ describe Langue::Japanese::Verb, '.take' do
     }
   end
 end
+
+describe Langue::Japanese::Verb, '#text' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
+    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+  end
+
+  it 'returns the text without the prefix' do
+    @verb.text.should == '話さない'
+    @suru_verb.text.should == '連絡しない'
+  end
+end
+
+describe Langue::Japanese::Verb, '#prefix' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
+    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+  end
+
+  it 'returns the prefix' do
+    @verb.prefix.should == 'ぶっぶち'
+    @suru_verb.prefix.should == '超ご'
+  end
+end
+
+describe Langue::Japanese::Verb, '#full_text' do
+  before :all do
+    parser = Langue::Japanese::Parser.new
+    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
+    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+  end
+
+  it 'returns the text with the prefix' do
+    @verb.full_text.should == 'ぶっぶち話さない'
+    @suru_verb.full_text.should == '超ご連絡しない'
+  end
+end

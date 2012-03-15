@@ -75,6 +75,19 @@ describe Langue::Japanese::Structurer, '#structure' do
         words.zip(sentence).each do |pair|
           pair[1].text.should == pair[0][0]
           pair[1].class.name.split('::').last.should == pair[0][1]
+          next unless pair[0][2]
+
+          pair[0][2].each do |name, value|
+            got = pair[1].__send__(name)
+
+            if TrueClass === value
+              got.should be_true
+            elsif FalseClass === value
+              got.should be_false
+            else
+              got.should == value
+            end
+          end
         end
       end
     end

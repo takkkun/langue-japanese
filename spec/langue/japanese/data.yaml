@@ -5,7 +5,13 @@
       - [今日, Noun]
       - [妹, Noun]
       - [一緒, Noun]
-      - [お買い物してきた, Verb]
+      - - 買い物してきた
+        - Verb
+        - full_text: お買い物してきた
+#       - - 買い物してくる
+#         - Verb
+#         - full_text:   お買い物してきた
+#           perfective?: true
 
 -
   text: 例の女子会が延期になってちょっとホッとしている
