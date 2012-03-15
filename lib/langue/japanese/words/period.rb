@@ -40,6 +40,16 @@ module Langue
           size
         end
       end
+
+      def exclamation?
+        @exclamation = !!(text =~ /[!！]/) unless instance_variable_defined?(:@exclamation)
+        @exclamation
+      end
+
+      def question?
+        @question = !!(text =~ /[?？]/) unless instance_variable_defined?(:@question)
+        @question
+      end
     end
   end
 end
