@@ -5,6 +5,9 @@ require 'langue/japanese/words/classifier'
 module Langue
   module Japanese
     class Noun < Word
+      INHIBITED_FIRST_CHARS = %w(ぁ ァ ぃ ィ ぅ ゥ ぇ ェ ぉ ォ っ ッ ー)
+      INHIBITED_LAST_CHARS  = %w()
+
       class << self
         include Classifier
 
@@ -32,7 +35,10 @@ module Langue
 
           return 0 if all
           return 0 if noun_conjunct_to_suru?(morphemes, index + size - 1) && suru_verb?(morphemes, index + size)
-          return 0 if morphemes[index].text[0] == 'ー'
+          first_char = morphemes[index].text[0]
+          last_char = morphemes[index + size - 1].text[-1]
+          return 0 if INHIBITED_FIRST_CHARS.include?(first_char)
+          return 0 if INHIBITED_LAST_CHARS.include?(last_char)
           size
         end
 

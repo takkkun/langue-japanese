@@ -55,7 +55,7 @@ describe Langue::Japanese::Noun, '.take' do
     }
   end
 
-  it 'does not take noun conjunct to verb' do
+  it 'does not take noun conjunct to suru-verb' do
     @pairs = {
       '連絡する'       => 0,
       '緊急連絡する'   => 0,
@@ -63,8 +63,20 @@ describe Langue::Japanese::Noun, '.take' do
     }
   end
 
-  it 'does not take noun if starts with ー' do
+  it 'does not take noun if starts with special char' do
     @pairs = {
+      'ぁ犬だ' => 0,
+      'ァ犬だ' => 0,
+      'ぃ犬だ' => 0,
+      'ィ犬だ' => 0,
+      'ぅ犬だ' => 0,
+      'ゥ犬だ' => 0,
+      'ぇ犬だ' => 0,
+      'ェ犬だ' => 0,
+      'ぉ犬だ' => 0,
+      'ォ犬だ' => 0,
+      'っ犬だ' => 0,
+      'ッ犬だ' => 0,
       'ー犬だ' => 0
     }
   end

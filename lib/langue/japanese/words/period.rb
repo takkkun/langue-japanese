@@ -5,13 +5,11 @@ require 'langue/japanese/words/classifier'
 module Langue
   module Japanese
     class Period < Word
+      COMMAS = %w(, ， 、)
+      DOTS   = COMMAS + %w(. ． 。 ・ ‥ …)
+      MARKS  = %w(! ！ ? ？)
+
       class << self
-        include Classifier
-
-        COMMAS = %w(, ， 、)
-        DOTS   = COMMAS + %w(. ． 。 ・ ‥ …)
-        MARKS  = %w(! ！ ? ？)
-
         def take(morphemes, index)
           if dot?(morphemes, index)
             take_dot(morphemes, index)
