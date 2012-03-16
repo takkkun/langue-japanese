@@ -1,11 +1,15 @@
 require 'langue/word'
+require 'langue/japanese/words/prefix'
+require 'langue/japanese/words/attribute'
 require 'langue/japanese/words/classifier'
-require 'langue/japanese/words/with_prefix'
 
 module Langue
   module Japanese
     class Verb < Word
-      include WithPrefix
+      include Prefix
+      include Attribute
+
+      has :progressive, :passive, :aggressive, :negative, :perfective, :imperative
 
       class << self
         include Classifier
@@ -64,18 +68,32 @@ module Langue
         end
       end
 
-      protected
-
-      def take_prefix
-        size = 0
-
-        if self.class.verb_prefix?(morphemes, size)
-          size += 1 while self.class.verb_prefix?(morphemes, size)
-        elsif self.class.noun_prefix?(morphemes, size)
-          size += 1 while self.class.noun_prefix?(morphemes, size)
+      def key_morpheme
+        unless instance_variable_defined?(:@key_morpheme)
+          @key_morpheme = if empty?
+                            nil
+                          else
+                            index = size - 1
+                            index -= 1 while !self.class.body_verb?(morphemes, index)
+                            self[index]
+                          end
         end
 
-        size
+        @key_morpheme
+      end
+
+      def prefix_morphemes
+        @prefix_morphemes ||= begin
+                                size = 0
+
+                                if self.class.verb_prefix?(morphemes, size)
+                                  size += 1 while self.class.verb_prefix?(morphemes, size)
+                                elsif self.class.noun_prefix?(morphemes, size)
+                                  size += 1 while self.class.noun_prefix?(morphemes, size)
+                                end
+
+                                morphemes[0, size]
+                              end
       end
     end
   end

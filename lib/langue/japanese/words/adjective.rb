@@ -1,11 +1,15 @@
 require 'langue/word'
+require 'langue/japanese/words/prefix'
+require 'langue/japanese/words/attribute'
 require 'langue/japanese/words/classifier'
-require 'langue/japanese/words/with_prefix'
 
 module Langue
   module Japanese
     class Adjective < Word
-      include WithPrefix
+      include Prefix
+      include Attribute
+
+      has :negative, :perfective
 
       class << self
         include Classifier
@@ -37,12 +41,26 @@ module Langue
         end
       end
 
-      protected
+      def key_morpheme
+        unless instance_variable_defined?(:@key_morpheme)
+          @key_morpheme = if empty?
+                            nil
+                          else
+                            index = size - 1
+                            index -= 1 while !self.class.body_adjective?(morphemes, index)
+                            self[index]
+                          end
+        end
 
-      def take_prefix
-        size = 0
-        size += 1 while self.class.adjective_prefix?(morphemes, size)
-        size
+        @key_morpheme
+      end
+
+      def prefix_morphemes
+        @prefix_morphemes ||= begin
+                                size = 0
+                                size += 1 while self.class.adjective_prefix?(morphemes, size)
+                                morphemes[0, size]
+                              end
       end
     end
   end

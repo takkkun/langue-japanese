@@ -2,6 +2,12 @@
 require 'langue/japanese/words/adjective'
 require 'langue/japanese/parser'
 
+def adjective(text)
+  parser = Langue::Japanese::Parser.new
+  morphemes = parser.parse(text)
+  Langue::Japanese::Adjective.new(morphemes)
+end
+
 describe Langue::Japanese::Adjective, '.take' do
   before :all do
     @parser = Langue::Japanese::Parser.new
@@ -73,35 +79,63 @@ describe Langue::Japanese::Adjective, '.take' do
   end
 end
 
-describe Langue::Japanese::Adjective, '#text' do
-  before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+describe Langue::Japanese::Adjective, '#key_morpheme' do
+  it 'returns the categorematic adjective or the noncategorematic adjective' do
+    {
+      '可愛い' => 0,
+      '可愛っぽい' => 0,
+      '可愛くない' => 0,
+      '可愛がたい' => 1
+    }.each do |text, index|
+      word = adjective(text)
+      word.key_morpheme.should == word[index]
+    end
   end
 
-  it 'returns the text without the prefix' do
-    @word.text.should == '可愛い'
+  context 'with an empty word' do
+    it 'returns nil' do
+      word = described_class.new
+      word.key_morpheme.should be_nil
+    end
   end
 end
 
 describe Langue::Japanese::Adjective, '#prefix' do
   before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+    @word = adjective('くそくそ可愛っぽくない')
   end
 
   it 'returns the prefix' do
-    @word.prefix.should == 'くそ真っ'
+    @word.prefix.should == 'くそくそ'
   end
 end
 
-describe Langue::Japanese::Adjective, '#full_text' do
+describe Langue::Japanese::Adjective, '#body' do
   before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('くそ真っ可愛い'))
+    @word = adjective('くそくそ可愛っぽくない')
   end
 
   it 'returns the text with the prefix' do
-    @word.full_text.should == 'くそ真っ可愛い'
+    @word.body.should == '可愛い'
+  end
+end
+
+describe Langue::Japanese::Adjective, '#negative?' do
+  it 'returns true if it is negative' do
+    adjective('可愛くない').should be_negative
+  end
+
+  it 'returns false if it is not negative' do
+    adjective('可愛い').should_not be_negative
+  end
+end
+
+describe Langue::Japanese::Adjective, '#perfective?' do
+  it 'returns true if it is perfective' do
+    adjective('可愛かった').should be_perfective
+  end
+
+  it 'returns false if it is not perfective' do
+    adjective('可愛い').should_not be_perfective
   end
 end

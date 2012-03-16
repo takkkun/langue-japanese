@@ -66,17 +66,6 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
   end
 end
 
-describe Langue::Japanese::AdjectiveNoun, '#text' do
-  before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('反超病気がち'))
-  end
-
-  it 'returns the text without the prefix' do
-    @word.text.should == '病気がち'
-  end
-end
-
 describe Langue::Japanese::AdjectiveNoun, '#prefix' do
   before :all do
     parser = Langue::Japanese::Parser.new
@@ -88,13 +77,14 @@ describe Langue::Japanese::AdjectiveNoun, '#prefix' do
   end
 end
 
-describe Langue::Japanese::AdjectiveNoun, '#full_text' do
+describe Langue::Japanese::AdjectiveNoun, '#body' do
   before :all do
     parser = Langue::Japanese::Parser.new
     @word = described_class.new(parser.parse('反超病気がち'))
   end
 
   it 'returns the text with the prefix' do
-    @word.full_text.should == '反超病気がち'
+    @word.body.should == '病気がち'
   end
 end
+

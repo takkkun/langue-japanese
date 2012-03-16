@@ -2,6 +2,12 @@
 require 'langue/japanese/words/verb'
 require 'langue/japanese/parser'
 
+def verb(text)
+  parser = Langue::Japanese::Parser.new
+  morphemes = parser.parse(text)
+  Langue::Japanese::Verb.new(morphemes)
+end
+
 describe Langue::Japanese::Verb, '.take' do
   before :all do
     @parser = Langue::Japanese::Parser.new
@@ -90,7 +96,7 @@ describe Langue::Japanese::Verb, '.take' do
     }
   end
 
-  it 'takes a "wanna" verb' do
+  it 'takes an aggressive verb' do
     @pairs = {
       '話したいこと'     => 2,
       'ぶっ話したいこと' => 3,
@@ -138,24 +144,34 @@ describe Langue::Japanese::Verb, '.take' do
   end
 end
 
-describe Langue::Japanese::Verb, '#text' do
-  before :all do
-    parser = Langue::Japanese::Parser.new
-    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
-    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+describe Langue::Japanese::Verb, '#key_morpheme' do
+  it 'returns the categorematic verb or the noncategorematic verb' do
+    {
+      '話す'           => 0,
+      '話し続けている' => 1,
+      '話される'       => 0,
+      '話してる'       => 0,
+      '話している'     => 0,
+      '話しとる'       => 0,
+      '話しちゃう'     => 0
+    }.each do |text, index|
+      word = verb(text)
+      word.key_morpheme.should == word[index]
+    end
   end
 
-  it 'returns the text without the prefix' do
-    @verb.text.should == '話さない'
-    @suru_verb.text.should == '連絡しない'
+  context 'with an empty word' do
+    it 'returns nil' do
+      word = described_class.new
+      word.key_morpheme.should be_nil
+    end
   end
 end
 
 describe Langue::Japanese::Verb, '#prefix' do
   before :all do
-    parser = Langue::Japanese::Parser.new
-    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
-    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+    @verb = verb('ぶっぶち話さない')
+    @suru_verb = verb('超ご連絡しない')
   end
 
   it 'returns the prefix' do
@@ -164,15 +180,83 @@ describe Langue::Japanese::Verb, '#prefix' do
   end
 end
 
-describe Langue::Japanese::Verb, '#full_text' do
+describe Langue::Japanese::Verb, '#body' do
   before :all do
-    parser = Langue::Japanese::Parser.new
-    @verb = described_class.new(parser.parse('ぶっぶち話さない'))
-    @suru_verb = described_class.new(parser.parse('超ご連絡しない'))
+    @verb = verb('ぶっぶち話さない')
+    @suru_verb = verb('超ご連絡しない')
   end
 
-  it 'returns the text with the prefix' do
-    @verb.full_text.should == 'ぶっぶち話さない'
-    @suru_verb.full_text.should == '超ご連絡しない'
+  it 'returns the text without the prefix and the attribute' do
+    @verb.body.should == '話す'
+    @suru_verb.body.should == '連絡する'
+  end
+end
+
+describe Langue::Japanese::Verb, '#progressive?' do
+  it 'returns true if it is progressive' do
+    verb('話している').should be_progressive
+    verb('話してる').should be_progressive
+    verb('話しとる').should be_progressive
+    verb('富んでいる').should be_progressive
+    verb('富んでる').should be_progressive
+    verb('富んどる').should be_progressive
+  end
+
+  it 'returns false if it is not progressive' do
+    verb('話されたくなかった').should_not be_progressive
+  end
+end
+
+describe Langue::Japanese::Verb, '#passive?' do
+  it 'returns true if it is passive' do
+    verb('話される').should be_passive
+    verb('富んでられる').should be_passive
+  end
+
+  it 'returns false if it is not passive' do
+    verb('話していたくなかった').should_not be_passive
+  end
+end
+
+describe Langue::Japanese::Verb, '#aggressive?' do
+  it 'returns true if it is aggressive' do
+    verb('話したい').should be_aggressive
+  end
+
+  it 'returns false if it is not aggressive' do
+    verb('話されていなかった').should_not be_aggressive
+  end
+end
+
+describe Langue::Japanese::Verb, '#negative?' do
+  it 'returns true if it is negative' do
+    verb('話さない').should be_negative
+    verb('話さぬ').should be_negative
+  end
+
+  it 'returns false if it is not negative' do
+    verb('話されていたかった').should_not be_negative
+  end
+end
+
+describe Langue::Japanese::Verb, '#perfective?' do
+  it 'returns true if it is perfective' do
+    verb('話した').should be_perfective
+    verb('去りぬ').should be_perfective
+  end
+
+  it 'returns false if it is not perfective' do
+    verb('話されていたくない').should_not be_perfective
+  end
+end
+
+describe Langue::Japanese::Verb, '#imperative?' do
+  it 'returns true if it is imperative' do
+    verb('話せ').should be_imperative
+    verb('話してください').should be_imperative
+  end
+
+  it 'returns false if it is not imperative' do
+    verb('話されていたくなかった').should_not be_imperative
   end
 end

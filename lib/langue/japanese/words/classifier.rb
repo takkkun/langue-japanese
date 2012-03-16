@@ -72,12 +72,12 @@ module Langue
       end
 
       def following_adjective?(morphemes, index)
-        (noncategorematic_adjective?(morphemes, index) || adjective_suffix?(morphemes, index)) && !ra5_special?(morphemes, index) ||
+        (noncategorematic_adjective?(morphemes, index) || adjective_suffix?(morphemes, index)) ||
         auxiliary_verb?(morphemes, index)
       end
 
       def following_verb?(morphemes, index)
-        (noncategorematic_verb?(morphemes, index) || verb_suffix?(morphemes, index)) && !ra5_special?(morphemes, index) ||
+        (noncategorematic_verb?(morphemes, index) || verb_suffix?(morphemes, index)) ||
         auxiliary_verb?(morphemes, index)
       end
 
@@ -89,8 +89,18 @@ module Langue
         categorematic_verb?(morphemes, index) && morphemes.at(index) {|m| m.inflected?('サ変・スル')}
       end
 
-      def ra5_special?(morphemes, index)
-        morphemes.at(index) {|m| m.inflected?('五段・ラ行特殊')}
+      def body_verb?(morphemes, index)
+        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !progressive_verb?(morphemes, index)
+      end
+
+      def progressive_verb?(morphemes, index)
+        noncategorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
+          %w(いる てる でる とる どる ちゃう じゃう).include?(m.root_form)
+        end
+      end
+
+      def body_adjective?(morphemes, index)
+        categorematic_adjective?(morphemes, index) || noncategorematic_adjective?(morphemes, index)
       end
     end
   end

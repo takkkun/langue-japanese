@@ -78,14 +78,20 @@ describe Langue::Japanese::Structurer, '#structure' do
           next unless pair[0][2]
 
           pair[0][2].each do |name, value|
-            got = pair[1].__send__(name)
-
-            if TrueClass === value
-              got.should be_true
-            elsif FalseClass === value
-              got.should be_false
+            if name.downcase == 'attributes'
+              value.each do |attribute|
+                pair[1].__send__("#{attribute}?").should be_true
+              end
             else
-              got.should == value
+              got = pair[1].__send__(name)
+
+              if TrueClass === value
+                got.should be_true
+              elsif FalseClass === value
+                got.should be_false
+              else
+                got.should == value
+              end
             end
           end
         end

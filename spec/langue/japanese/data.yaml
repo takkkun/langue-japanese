@@ -5,13 +5,11 @@
       - [今日, Noun]
       - [妹, Noun]
       - [一緒, Noun]
-      - - 買い物してきた
+      - - お買い物してきた
         - Verb
-        - full_text: お買い物してきた
-#       - - 買い物してくる
-#         - Verb
-#         - full_text:   お買い物してきた
-#           perfective?: true
+        - body: 買い物してくる
+          prefix: お
+          attributes: [perfective]
 
 -
   text: 例の女子会が延期になってちょっとホッとしている
@@ -26,7 +24,9 @@
   sentences:
     -
       - [部屋, Noun]
-      - [寒く, Adjective]
+      - - 寒く
+        - Adjective
+        - body: 寒い
       - [インターネット, Noun]
 
 -
@@ -34,7 +34,9 @@
   sentences:
     -
       - [牛乳, Noun]
-      - [甘い, Adjective]
+      - - 甘い
+        - Adjective
+        - body: 甘い
       - [？, Period]
 
 -
@@ -45,14 +47,17 @@
       - [……, Period]
 
 -
-  text: 情報系大学生なら卒業までに応用情報レベルの知識を習ってると思うのだけども.
+  text: 情報系大学生なら卒業までに応用情報レベルの知識を習っていると思うのだけども.
   sentences:
     -
       - [情報系大学生, Noun]
       - [卒業, Noun]
       - [応用情報レベル, Noun]
       - [知識, Noun]
-      - [習ってる, Verb]
+      - - 習っている
+        - Verb
+        - body: 習う
+          attributes: [progressive]
       - [., Period]
 
 -
@@ -61,11 +66,16 @@
     -
       - [プログラマー, Noun]
       - [資格, Noun]
-      - [持つ, Verb]
+      - - 持つ
+        - Verb
+        - body: 持つ
       - [息子, Noun]
       - [面接, Noun]
       - [全て, Noun]
-      - [落ちました, Verb]
+      - - 落ちました
+        - Verb
+        - body: 落ちる
+          attributes: [perfective]
       - [。, Period]
     -
       - [理系, Noun]
@@ -78,7 +88,9 @@
   sentences:
     -
       - [病院, Noun]
-      - [いこう, Verb]
+      - - いこう
+        - Verb
+        - body: いく
       - […。, Period]
     -
       - […。, Period]
@@ -96,11 +108,15 @@
     -
       - [絶対, Noun]
       - [お腹, Noun]
-      - [すく, Adjective]
+      - - すく
+        - Adjective
+        - body: すい
       - [。, Period]
     -
       - [今あんま, Noun]
-      - [食べる, Verb]
+      - - 食べる
+        - Verb
+        - body: 食べる
       - [しにゃい, Verb]
       - [。。。, Period]
 
@@ -110,8 +126,38 @@
     -
       - [iphone4s, Noun]
       - [ただ, Noun]
-      - [替えられる, Verb]
-      - [聞いた, Verb]
-      - [使う, Verb]
+      - - 替えられる
+        - Verb
+        - body: 替える
+          attributes: [passive]
+      - - 聞いた
+        - Verb
+        - body: 聞く
+          attributes: [perfective]
+      - - 使う
+        - Verb
+        - body: 使う
       - [疑問, Noun]
       - [……, Period]
+
+-
+  text: 俺のためにご奉仕しろ！
+  sentences:
+    -
+      - [俺, Pronoun]
+      - - ご奉仕しろ
+        - Verb
+        - body: 奉仕する
+          prefix: ご
+          attributes: [imperative]
+      - [！, Period]
+
+-
+  text: 風と共に去らぬ
+  sentences:
+    -
+      - [風, Noun]
+      - - 去らぬ
+        - Verb
+        - body: 去る
+          attributes: [negative]
