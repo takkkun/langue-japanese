@@ -1,5 +1,5 @@
 -
-  text: 今日は妹と一緒にお買い物してきたよ
+  text: 今日は妹と一緒にお買い物してきたよ。楽しかった〜
   sentences:
     -
       - [今日, Noun]
@@ -9,6 +9,12 @@
         - Verb
         - body: 買い物してくる
           prefix: お
+          attributes: [perfective]
+      - [。, Period]
+    -
+      - - 楽しかった
+        - Adjective
+        - body: 楽しい
           attributes: [perfective]
 
 -

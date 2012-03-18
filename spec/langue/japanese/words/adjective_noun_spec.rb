@@ -2,14 +2,17 @@
 require 'langue/japanese/words/adjective_noun'
 require 'langue/japanese/parser'
 
-describe Langue::Japanese::AdjectiveNoun, '.take' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
+$parser ||= Langue::Japanese::Parser.new
 
+def adjective_noun(text)
+  morphemes = $parser.parse(text)
+  Langue::Japanese::AdjectiveNoun.new(morphemes)
+end
+
+describe Langue::Japanese::AdjectiveNoun, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = @parser.parse(text)
+      morphemes = $parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
@@ -67,24 +70,14 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
 end
 
 describe Langue::Japanese::AdjectiveNoun, '#prefix' do
-  before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('反超病気がち'))
-  end
-
   it 'returns the prefix' do
-    @word.prefix.should == '反超'
+    adjective_noun('反超病気がち').prefix.should == '反超'
   end
 end
 
 describe Langue::Japanese::AdjectiveNoun, '#body' do
-  before :all do
-    parser = Langue::Japanese::Parser.new
-    @word = described_class.new(parser.parse('反超病気がち'))
-  end
-
   it 'returns the text with the prefix' do
-    @word.body.should == '病気がち'
+    adjective_noun('反超病気がち').body.should == '病気がち'
   end
 end
 

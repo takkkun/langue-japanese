@@ -2,14 +2,17 @@
 require 'langue/japanese/words/period'
 require 'langue/japanese/parser'
 
-describe Langue::Japanese::Period, '.take' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
+$parser ||= Langue::Japanese::Parser.new
 
+def period(text)
+  morphemes = $parser.parse(text)
+  Langue::Japanese::Period.new(morphemes)
+end
+
+describe Langue::Japanese::Period, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = @parser.parse(text)
+      morphemes = $parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
@@ -49,33 +52,25 @@ describe Langue::Japanese::Period, '.take' do
 end
 
 describe Langue::Japanese::Period, '#exclamation?' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
-
   it 'returns true if include exclamation mark' do
-    described_class.new(@parser.parse('!')).should  be_exclamation
-    described_class.new(@parser.parse('！')).should be_exclamation
-    described_class.new(@parser.parse('?!')).should be_exclamation
+    period('!').should  be_exclamation
+    period('！').should be_exclamation
+    period('?!').should be_exclamation
   end
 
   it 'returns false if do not include exclamation marks' do
-    described_class.new(@parser.parse('?')).should_not  be_exclamation
+    period('?').should_not  be_exclamation
   end
 end
 
 describe Langue::Japanese::Period, '#question?' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
-
   it 'returns true if include question mark' do
-    described_class.new(@parser.parse('?')).should  be_question
-    described_class.new(@parser.parse('？')).should be_question
-    described_class.new(@parser.parse('!?')).should be_question
+    period('?').should  be_question
+    period('？').should be_question
+    period('!?').should be_question
   end
 
   it 'returns false if do not include question marks' do
-    described_class.new(@parser.parse('!')).should_not  be_question
+    period('!').should_not  be_question
   end
 end

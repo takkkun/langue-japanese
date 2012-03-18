@@ -2,20 +2,17 @@
 require 'langue/japanese/words/verb'
 require 'langue/japanese/parser'
 
+$parser ||= Langue::Japanese::Parser.new
+
 def verb(text)
-  parser = Langue::Japanese::Parser.new
-  morphemes = parser.parse(text)
+  morphemes = $parser.parse(text)
   Langue::Japanese::Verb.new(morphemes)
 end
 
 describe Langue::Japanese::Verb, '.take' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
-
   after do
     @pairs.each do |text, size|
-      morphemes = @parser.parse(text)
+      morphemes = $parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
@@ -169,26 +166,16 @@ describe Langue::Japanese::Verb, '#key_morpheme' do
 end
 
 describe Langue::Japanese::Verb, '#prefix' do
-  before :all do
-    @verb = verb('ぶっぶち話さない')
-    @suru_verb = verb('超ご連絡しない')
-  end
-
   it 'returns the prefix' do
-    @verb.prefix.should == 'ぶっぶち'
-    @suru_verb.prefix.should == '超ご'
+    verb('ぶっぶち話さない').prefix.should == 'ぶっぶち'
+    verb('超ご連絡しない').prefix.should == '超ご'
   end
 end
 
 describe Langue::Japanese::Verb, '#body' do
-  before :all do
-    @verb = verb('ぶっぶち話さない')
-    @suru_verb = verb('超ご連絡しない')
-  end
-
   it 'returns the text without the prefix and the attribute' do
-    @verb.body.should == '話す'
-    @suru_verb.body.should == '連絡する'
+    verb('ぶっぶち話さない').body.should == '話す'
+    verb('超ご連絡しない').body.should == '連絡する'
   end
 end
 

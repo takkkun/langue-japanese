@@ -2,14 +2,12 @@
 require 'langue/japanese/words/noun'
 require 'langue/japanese/parser'
 
-describe Langue::Japanese::Noun, '.take' do
-  before :all do
-    @parser = Langue::Japanese::Parser.new
-  end
+$parser ||= Langue::Japanese::Parser.new
 
+describe Langue::Japanese::Noun, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = @parser.parse(text)
+      morphemes = $parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
