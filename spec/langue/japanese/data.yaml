@@ -1,0 +1,169 @@
+-
+  text: 今日は妹と一緒にお買い物してきたよ。楽しかった〜
+  sentences:
+    -
+      - [今日, Noun]
+      - [妹, Noun]
+      - [一緒, Noun]
+      - - お買い物してきた
+        - Verb
+        - body: 買い物してくる
+          prefix: お
+          attributes: [perfective]
+      - [。, Period]
+    -
+      - - 楽しかった
+        - Adjective
+        - body: 楽しい
+          attributes: [perfective]
+
+-
+  text: 例の女子会が延期になってちょっとホッとしている
+  sentences:
+    -
+      - [例, Noun]
+      - [女子会, Noun]
+      - [延期, Noun]
+
+-
+  text: こんなに部屋が寒くてはインターネットもままならぬ
+  sentences:
+    -
+      - [部屋, Noun]
+      - - 寒く
+        - Adjective
+        - body: 寒い
+      - [インターネット, Noun]
+
+-
+  text: 牛乳って意外と甘い？
+  sentences:
+    -
+      - [牛乳, Noun]
+      - - 甘い
+        - Adjective
+        - body: 甘い
+      - [？, Period]
+
+-
+  text: むしろ精神的疾患とは……
+  sentences:
+    -
+      - [精神的疾患, Noun]
+      - [……, Period]
+
+-
+  text: 情報系大学生なら卒業までに応用情報レベルの知識を習っていると思うのだけども.
+  sentences:
+    -
+      - [情報系大学生, Noun]
+      - [卒業, Noun]
+      - [応用情報レベル, Noun]
+      - [知識, Noun]
+      - - 習っている
+        - Verb
+        - body: 習う
+          attributes: [progressive]
+      - [., Period]
+
+-
+  text: プログラマーの資格を持つ息子が面接に全て落ちました。理系でも旧帝じゃないとダメなのでしょうか？
+  sentences:
+    -
+      - [プログラマー, Noun]
+      - [資格, Noun]
+      - - 持つ
+        - Verb
+        - body: 持つ
+      - [息子, Noun]
+      - [面接, Noun]
+      - [全て, Noun]
+      - - 落ちました
+        - Verb
+        - body: 落ちる
+          attributes: [perfective]
+      - [。, Period]
+    -
+      - [理系, Noun]
+      - [旧帝, Noun]
+      - [ダメ, AdjectiveNoun]
+      - [？, Period]
+
+-
+  text: ちゃんと病院いこうね…。はい…。
+  sentences:
+    -
+      - [病院, Noun]
+      - - いこう
+        - Verb
+        - body: いく
+      - […。, Period]
+    -
+      - […。, Period]
+
+-
+  text: んー、お昼がスープパスタだけとか。。。あふんあふん。。。後で絶対お腹すくなー。でも今あんま食べる気しにゃい。。。
+  sentences:
+    -
+      - [お昼, Noun]
+      - [スープパスタ, Noun]
+      - [。。。, Period]
+    -
+      - [あふん, Verb]
+      - [。。。, Period]
+    -
+      - [絶対, Noun]
+      - [お腹, Noun]
+      - - すく
+        - Adjective
+        - body: すい
+      - [。, Period]
+    -
+      - [今あんま, Noun]
+      - - 食べる
+        - Verb
+        - body: 食べる
+      - [しにゃい, Verb]
+      - [。。。, Period]
+
+-
+  text: iPhone 4Sにただで替えられるって聞いたけど、本当に使うかは疑問なので……
+  sentences:
+    -
+      - [iphone4s, Noun]
+      - [ただ, Noun]
+      - - 替えられる
+        - Verb
+        - body: 替える
+          attributes: [passive]
+      - - 聞いた
+        - Verb
+        - body: 聞く
+          attributes: [perfective]
+      - - 使う
+        - Verb
+        - body: 使う
+      - [疑問, Noun]
+      - [……, Period]
+
+-
+  text: 俺のためにご奉仕しろ！
+  sentences:
+    -
+      - [俺, Pronoun]
+      - - ご奉仕しろ
+        - Verb
+        - body: 奉仕する
+          prefix: ご
+          attributes: [imperative]
+      - [！, Period]
+
+-
+  text: 風と共に去らぬ
+  sentences:
+    -
+      - [風, Noun]
+      - - 去らぬ
+        - Verb
+        - body: 去る
+          attributes: [negative]
