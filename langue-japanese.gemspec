@@ -19,7 +19,4 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'activesupport'
 
   gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'autotest'
-  gem.add_development_dependency 'autotest-fsevent'
-  gem.add_development_dependency 'autotest-growl'
 end
