@@ -14,11 +14,6 @@ Add this line to your application's Gemfile:
     # When doing morphological analysis
     gem 'mecab-ruby', :git => 'path to mecab-ruby repository'
 
-langue-japanese gem runs on langue gem. So it depends to langue gem.
-
-It also uses MeCab with morphological analysis, this gem depends too to
-mecab-ruby gem if you do it.
-
 And then execute:
 
     $ bundle
@@ -28,15 +23,25 @@ Or install it yourself as:
     $ gem install langue
     $ gem install langue-japanese
 
+langue-japanese gem runs on langue gem. So it depends to langue gem.
+
+It also uses MeCab with morphological analysis, this gem depends too to
+mecab-ruby gem if you do it.
+
 Usage
 -----
 
     # coding: utf-8
-    require 'langue'
     require 'langue-japanese'
 
+    # Get a language class
     language = Langue['japanese'].new
-    text = language.structuralize('今日は妹と一緒にお買い物してきたよ')
+
+    # Split to morphemes a text
+    morphemes = language.parse('今日は妹と一緒にお買い物してきたよ。楽しかった〜')
+
+    # Create a structured text from the morphemes
+    text = language.structure(morphemes)
 
 Contributing
 ------------
