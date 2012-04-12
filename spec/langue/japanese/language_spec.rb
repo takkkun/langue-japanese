@@ -2,7 +2,7 @@ require 'langue/japanese/language'
 
 describe Langue::Japanese::Language do
   it 'is an instance of Class' do
-    described_class.should be_an_instance_of Class
+    described_class.should be_an_instance_of(Class)
   end
 
   it 'extends Langue::Language' do
@@ -16,7 +16,7 @@ describe Langue::Japanese::Language, '#parse' do
   end
 
   before do
-    @parser = stub.tap {|s| s.stub!(:parse).and_return('morphemes')}
+    @parser = stub.tap { |s| s.stub!(:parse).and_return('morphemes') }
     Langue::Japanese::Parser.stub!(:new).and_return(@parser)
   end
 
@@ -46,7 +46,7 @@ describe Langue::Japanese::Language, '#structure' do
   end
 
   before do
-    @structurer = stub.tap {|s| s.stub!(:structure).and_return('text')}
+    @structurer = stub.tap { |s| s.stub!(:structure).and_return('text') }
     Langue::Japanese::Structurer.stub!(:new).and_return(@structurer)
   end
 

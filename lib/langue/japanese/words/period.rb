@@ -21,11 +21,11 @@ module Langue
         end
 
         def dot?(morphemes, index)
-          morphemes.at(index) {|m| DOTS.include?(m.text)}
+          morphemes.at(index) { |m| DOTS.include?(m.text) }
         end
 
         def mark?(morphemes, index)
-          morphemes.at(index) {|m| MARKS.include?(m.text)}
+          morphemes.at(index) { |m| MARKS.include?(m.text) }
         end
 
         def take_dot(morphemes, index)

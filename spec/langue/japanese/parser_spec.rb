@@ -37,8 +37,8 @@ end
 describe Langue::Japanese::Parser, '#parse' do
   before do
     node = make_node_list(3)
-    tagger = stub.tap {|s| s.stub!(:parseToNode).with('text').and_return(node)}
-    parser = described_class.new.tap {|s| s.stub!(:tagger).and_return(tagger)}
+    tagger = stub.tap { |s| s.stub!(:parseToNode).with('text').and_return(node) }
+    parser = described_class.new.tap { |s| s.stub!(:tagger).and_return(tagger) }
     @morphemes = parser.parse('text')
   end
 
@@ -75,7 +75,7 @@ describe Langue::Japanese::Parser, '#tagger' do
 
   it 'passes the options of MeCab to the MeCab::Tagger.new' do
     MeCab::Tagger.should_receive(:new).with('mecab_options')
-    @caller[lambda {|parser| parser.stub!(:mecab_options_as_string).and_return('mecab_options')}]
+    @caller[lambda { |parser| parser.stub!(:mecab_options_as_string).and_return('mecab_options')} ]
   end
 end
 

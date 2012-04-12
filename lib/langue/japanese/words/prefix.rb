@@ -6,7 +6,7 @@ module Langue
       def self.included(object)
         object.class_eval do
           include MorphemeFilter
-          filter {|word, morphemes| morphemes[word.prefix_morphemes.size..-1]}
+          filter { |word, morphemes| morphemes[word.prefix_morphemes.size..-1] }
         end
       end
 

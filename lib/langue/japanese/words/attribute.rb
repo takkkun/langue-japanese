@@ -7,7 +7,7 @@ module Langue
       def self.included(object)
         object.class_eval do
           include MorphemeFilter
-          filter {|word, morphemes| word.empty? ? morphemes : morphemes[0..morphemes.index(word.key_morpheme)]}
+          filter { |word, morphemes| word.empty? ? morphemes : morphemes[0..morphemes.index(word.key_morpheme)] }
 
           def self.has(*attrs)
             attrs.each do |attr|
@@ -40,7 +40,7 @@ module Langue
           if value
             super
           else
-            each_with_index {|morpheme, index| return index if yield morpheme}
+            each_with_index { |morpheme, index| return index if yield morpheme }
             nil
           end
         end
@@ -52,7 +52,7 @@ module Langue
         if noncategorematic_verb_index(%w(てる でる とる どる))
           true
         elsif index = noncategorematic_verb_index(['いる'])
-          morphemes.at(index - 1) {|m| m.classified?('助詞', '接続助詞') && %w(て で).include?(m.root_form)}
+          morphemes.at(index - 1) { |m| m.classified?('助詞', '接続助詞') && %w(て で).include?(m.root_form) }
         end
       end
 
@@ -68,15 +68,15 @@ module Langue
         if auxiliary_verb_index('特殊・ナイ')
           true
         elsif index = auxiliary_verb_index('特殊・ヌ')
-          morphemes.at(index - 1) {|m| m.inflection_type == '未然形'}
+          morphemes.at(index - 1) { |m| m.inflection_type == '未然形' }
         end
       end
 
       def include_perfective?
         if auxiliary_verb_index('特殊・タ')
           true
-        elsif index = index {|m| m.classified?('助動詞') && m.root_form == 'ぬ'}
-          morphemes.at(index - 1) {|m| m.inflection_type == '連用形'}
+        elsif index = index { |m| m.classified?('助動詞') && m.root_form == 'ぬ' }
+          morphemes.at(index - 1) { |m| m.inflection_type == '連用形' }
         end
       end
 
@@ -85,15 +85,15 @@ module Langue
       end
 
       def noncategorematic_verb_index(root_forms)
-        index {|m| m.classified?('動詞', '非自立') && root_forms.include?(m.root_form)}
+        index { |m| m.classified?('動詞', '非自立') && root_forms.include?(m.root_form) }
       end
 
       def auxiliary_verb_index(inflection)
-        index {|m| m.classified?('助動詞') && m.inflected?(inflection)}
+        index { |m| m.classified?('助動詞') && m.inflected?(inflection) }
       end
 
       def verb_suffix_index(root_forms)
-        index {|m| m.classified?('動詞', '接尾') && root_forms.include?(m.root_form)}
+        index { |m| m.classified?('動詞', '接尾') && root_forms.include?(m.root_form) }
       end
     end
   end

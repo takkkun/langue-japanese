@@ -68,7 +68,7 @@ describe Langue::Japanese::Structurer, '#structure' do
       text.should have(sentences.size).items
 
       text.each_with_index do |sentence, index|
-        sentence = sentence.select {|word| !word.instance_of?(Langue::Word)}
+        sentence = sentence.select { |word| !word.instance_of?(Langue::Word) }
         words = sentences[index]
         sentence.should have(words.size).items
 
