@@ -117,3 +117,36 @@ describe Langue::Japanese::Parser, '#mecab_options_as_string' do
     end
   end
 end
+
+describe Langue::Japanese::Parser, '#create_morpheme' do
+  before do
+    @parser = described_class.new
+  end
+
+  it 'returns an expected morpheme' do
+    surface = 'surface'
+    feature = 'part_of_speech,category1,category2,category3,inflection,inflection_type,root_form,yomi,pronunciation'
+    morpheme = @parser.send(:create_morpheme, surface, feature)
+    morpheme.text.should == 'surface'
+    morpheme.part_of_speech.should == 'part_of_speech'
+    morpheme.categories.should == %w(category1 category2 category3)
+    morpheme.inflection.should == 'inflection'
+    morpheme.inflection_type.should == 'inflection_type'
+    morpheme.root_form.should == 'root_form'
+    morpheme.yomi.should == 'yomi'
+    morpheme.pronunciation.should == 'pronunciation'
+  end
+
+  it 'replaces an empty value from the asterisk' do
+    surface = 'surface'
+    feature = '*,*,*,*,*,*,*,*,*'
+    morpheme = @parser.send(:create_morpheme, surface, feature)
+    morpheme.part_of_speech.should be_nil
+    morpheme.categories.should be_empty
+    morpheme.inflection.should be_nil
+    morpheme.inflection_type.should be_nil
+    morpheme.root_form.should be_nil
+    morpheme.yomi.should be_nil
+    morpheme.pronunciation.should be_nil
+  end
+end
