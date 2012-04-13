@@ -28,6 +28,23 @@ describe Langue::Japanese::Language, '#parser' do
   end
 end
 
+describe Langue::Japanese::Language, '#shaper' do
+  before do
+    @language = described_class.new(:key => 'value')
+  end
+
+  it 'calls Langue::Japanese::Shaper.new with the options' do
+    shaper_stub
+    Langue::Japanese::Shaper.should_receive(:new).with(:key => 'value')
+    @language.shaper
+  end
+
+  it 'returns an instance of Langue::Japanese::Shaper' do
+    shaper = shaper_stub
+    @language.shaper.should == shaper
+  end
+end
+
 describe Langue::Japanese::Language, '#structurer' do
   before do
     @language = described_class.new(:key => 'value')
@@ -61,6 +78,25 @@ describe Langue::Japanese::Language, '#parse' do
   it 'returns the value returning from Langue::Japanese::Parser#parse' do
     parser_stub
     @language.parse('text').should == 'value returning from parse method'
+  end
+end
+
+describe Langue::Japanese::Language, '#shape_person_name' do
+  before do
+    @language = described_class.new(:key => 'value')
+  end
+
+  it 'calls shape_person_name method of shaper with morphemes' do
+    shaper_stub do |m|
+      m.should_receive(:shape_person_name).with('morphemes', 'Akane')
+    end
+
+    @language.shape_person_name('morphemes', 'Akane')
+  end
+
+  it 'returns the value returning from Langue::Japanese::Shaper#shape_person_name' do
+    shaper_stub
+    @language.shape_person_name('morphemes', 'Akane').should == 'value returning from shape_person_name method'
   end
 end
 

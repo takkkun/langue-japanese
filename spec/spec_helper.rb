@@ -13,6 +13,13 @@ def parser_stub
   end
 end
 
+def shaper_stub
+  operator_stub('shaper', :Shaper) do |s|
+    s.stub!(:shape_person_name).and_return('value returning from shape_person_name method')
+    yield s if block_given?
+  end
+end
+
 def structurer_stub
   operator_stub('structurer', :Structurer) do |s|
     s.stub!(:structure).and_return('value returning from structure method')

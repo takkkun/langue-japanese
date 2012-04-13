@@ -8,6 +8,11 @@ module Langue
       end
       depend_to :parser, 'langue/japanese/parser'
 
+      def shaper
+        @shaper ||= Shaper.new(@options)
+      end
+      depend_to :shaper, 'langue/japanese/shaper'
+
       def structurer
         @structurer ||= Structurer.new(@options)
       end
@@ -15,6 +20,10 @@ module Langue
 
       def parse(text)
         parser.parse(text)
+      end
+
+      def shape_person_name(morphemes, person_name)
+        shaper.shape_person_name(morphemes, person_name)
       end
 
       def structure(morphemes)
