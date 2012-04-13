@@ -19,15 +19,18 @@ describe Langue::Japanese::Shaper, '#initialize' do
 end
 
 describe Langue::Japanese::Shaper, '#shape_person_name' do
-  it 'forms the morphemes to a person name' do
+  it 'shapes the morphemes as person name' do
     shaper = described_class.new
 
     {
-      'あたしの名前は天道あかねよ' => '天道あかね',
-      'オレの名前は早乙女乱馬だ'   => '早乙女乱馬'
-    }.each do |text, name|
+      'あたしの名前は天道あかねよ' => ['天道あかね', 6],
+      'オレの名前は早乙女乱馬だ'   => ['早乙女乱馬', 6]
+    }.each do |text, params|
+      name, size = params
       morphemes = parser.parse(text)
-      morpheme = shaper.shape_person_name(morphemes, name).find { |m| m.classified?(*%w(名詞 固有名詞 人名)) }
+      shaped_morphemes = shaper.shape_person_name(morphemes, name)
+      shaped_morphemes.should have(size).items
+      morpheme = shaped_morphemes.find { |m| m.classified?(*%w(名詞 固有名詞 人名)) }
       morpheme.text.should == name
     end
   end

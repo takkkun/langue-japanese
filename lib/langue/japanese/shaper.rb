@@ -13,32 +13,31 @@ module Langue
       end
 
       def shape_person_name(morphemes, person_name)
-        new_morphemes = Morphemes.new
-        name_morphemes = []
-        start_index = 0
-        person_name_size = person_name.size
+        Morphemes.new.tap do |new_morphemes|
+          person_name_morphemes = []
+          start_index = 0
+          person_name_size = person_name.size
 
-        morphemes.each do |morpheme|
-          text = morpheme.text
-          index = person_name.index(text, start_index)
+          morphemes.each do |morpheme|
+            text = morpheme.text
+            index = person_name.index(text, start_index)
 
-          if index == start_index
-            name_morphemes << morpheme
-            start_index += text.size
+            if index == start_index
+              person_name_morphemes << morpheme
+              start_index += text.size
 
-            if start_index == person_name_size
-              new_morphemes << join_as_person_name(name_morphemes)
-              name_morphemes.clear
+              if start_index == person_name_size
+                new_morphemes << join_as_person_name(person_name_morphemes)
+                person_name_morphemes.clear
+                start_index = 0
+              end
+            else
+              new_morphemes.concat(person_name_morphemes) << morpheme
+              person_name_morphemes.clear
               start_index = 0
             end
-          else
-            new_morphemes += name_morphemes + [morpheme]
-            name_morphemes.clear
-            start_index = 0
           end
         end
-
-        new_morphemes
       end
 
       private
