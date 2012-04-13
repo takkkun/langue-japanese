@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
+require 'spec_helper'
 require 'langue/japanese/words/adjective'
-require 'langue/japanese/parser'
-
-$parser ||= Langue::Japanese::Parser.new
-
-def adjective(text)
-  morphemes = $parser.parse(text)
-  Langue::Japanese::Adjective.new(morphemes)
-end
 
 describe Langue::Japanese::Adjective, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = $parser.parse(text)
+      morphemes = parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
@@ -79,7 +72,7 @@ end
 describe Langue::Japanese::Adjective, '#key_morpheme' do
   it 'returns the categorematic adjective or the noncategorematic adjective' do
     {
-      '可愛い' => 0,
+      '可愛い'     => 0,
       '可愛っぽい' => 0,
       '可愛くない' => 0,
       '可愛がたい' => 1

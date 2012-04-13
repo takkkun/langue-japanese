@@ -63,7 +63,7 @@ module Langue
           end
         end
 
-        options.compact.join(' ')
+        options.join(' ')
       end
 
       def create_morpheme(surface, feature)

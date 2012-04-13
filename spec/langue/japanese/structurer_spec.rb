@@ -19,9 +19,9 @@ describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
     ]
   end
 
-  it 'has take in all' do
+  it 'has take method in all the word classes' do
     @word_classes.each do |word_class|
-      word_class.should be_respond_to :take
+      word_class.should be_respond_to(:take)
     end
   end
 end
