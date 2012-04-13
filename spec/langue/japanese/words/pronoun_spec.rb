@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
+require 'spec_helper'
 require 'langue/japanese/words/pronoun'
-require 'langue/japanese/parser'
-
-$parser ||= Langue::Japanese::Parser.new
 
 describe Langue::Japanese::Pronoun, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = $parser.parse(text)
+      morphemes = parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end

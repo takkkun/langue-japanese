@@ -43,7 +43,7 @@ module Langue
 
       }.each do |category, categories|
         define_method("#{category}?") do |morphemes, index|
-          morphemes.at(index) {|m| m.classified?(*categories)}
+          morphemes.at(index) { |m| m.classified?(*categories) }
         end
       end
 
@@ -86,7 +86,7 @@ module Langue
       end
 
       def suru_verb?(morphemes, index)
-        categorematic_verb?(morphemes, index) && morphemes.at(index) {|m| m.inflected?('サ変・スル')}
+        categorematic_verb?(morphemes, index) && morphemes.at(index) { |m| m.inflected?('サ変・スル') }
       end
 
       def body_verb?(morphemes, index)

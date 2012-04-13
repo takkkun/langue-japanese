@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
+require 'spec_helper'
 require 'langue/japanese/words/period'
-require 'langue/japanese/parser'
-
-$parser ||= Langue::Japanese::Parser.new
-
-def period(text)
-  morphemes = $parser.parse(text)
-  Langue::Japanese::Period.new(morphemes)
-end
 
 describe Langue::Japanese::Period, '.take' do
   after do
     @pairs.each do |text, size|
-      morphemes = $parser.parse(text)
+      morphemes = parser.parse(text)
       described_class.take(morphemes, 0).should == size
     end
   end
@@ -59,7 +52,7 @@ describe Langue::Japanese::Period, '#exclamation?' do
   end
 
   it 'returns false if do not include exclamation marks' do
-    period('?').should_not  be_exclamation
+    period('?').should_not be_exclamation
   end
 end
 
@@ -71,6 +64,6 @@ describe Langue::Japanese::Period, '#question?' do
   end
 
   it 'returns false if do not include question marks' do
-    period('!').should_not  be_question
+    period('!').should_not be_question
   end
 end

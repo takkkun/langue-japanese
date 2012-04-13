@@ -1,7 +1,7 @@
 require 'MeCab'
 
+require 'langue/morpheme'
 require 'langue/morphemes'
-require 'langue/japanese/morpheme'
 require 'langue/japanese/logging'
 
 module Langue
@@ -26,7 +26,7 @@ module Langue
 
           unless surface.empty?
             feature = node.feature.force_encoding('utf-8')
-            morphemes << Morpheme.from_mecab_node(surface, feature)
+            morphemes << create_morpheme(surface, feature)
           end
 
           node = node.next
@@ -63,7 +63,14 @@ module Langue
           end
         end
 
-        options.compact.join(' ')
+        options.join(' ')
+      end
+
+      def create_morpheme(surface, feature)
+        values = feature.split(',').map { |v| v == '*' ? nil : v }
+        values[1..3] = [values[1..3].take_while {|value| !value.nil?}]
+        values.unshift(surface.downcase)
+        Morpheme.new(Hash[Morpheme::KEYS.zip(values)])
       end
     end
   end

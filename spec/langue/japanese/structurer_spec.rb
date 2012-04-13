@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require 'langue/japanese/structurer'
-require 'langue/japanese/parser'
 require 'yaml'
 
 describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
@@ -19,16 +18,32 @@ describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
     ]
   end
 
-  it 'has take in all' do
+  it 'has take method in all the word classes' do
     @word_classes.each do |word_class|
-      word_class.should be_respond_to :take
+      word_class.should be_respond_to(:take)
+    end
+  end
+end
+
+describe Langue::Japanese::Structurer, '#initialize' do
+  it 'sets an instance of Langue::Japanese::Logging::NullLogger to @logger' do
+    structurer = described_class.new
+    logger = structurer.instance_eval { @logger }
+    logger.should be_a(Langue::Japanese::Logging::NullLogger)
+  end
+
+  context 'with logger option' do
+    it 'sets the value of logger option to @logger' do
+      structurer = described_class.new(:logger => 'logger')
+      logger = structurer.instance_eval { @logger }
+      logger.should == 'logger'
     end
   end
 end
 
 describe Langue::Japanese::Structurer, '#structure' do
   before :all do
-    @parser = Langue::Japanese::Parser.new
+    @parser = parser
     @morphemes = @parser.parse('今日は妹と一緒にお買い物してきたよ。楽しかった〜')
     @word_classes = Langue::Japanese::Structurer::WORD_CLASSES
   end
@@ -68,7 +83,7 @@ describe Langue::Japanese::Structurer, '#structure' do
       text.should have(sentences.size).items
 
       text.each_with_index do |sentence, index|
-        sentence = sentence.select {|word| !word.instance_of?(Langue::Word)}
+        sentence = sentence.select { |word| !word.instance_of?(Langue::Word) }
         words = sentences[index]
         sentence.should have(words.size).items
 

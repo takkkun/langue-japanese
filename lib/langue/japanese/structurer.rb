@@ -8,21 +8,19 @@ require 'langue/japanese/logging'
 module Langue
   module Japanese
     class Structurer
-      WORD_CLASSES = []
+      include Logging
 
-      %w(
+      WORD_CLASSES = %w(
         period
         verb
         adjective
         adjective_noun
         pronoun
         noun
-      ).each do |word_name|
+      ).map do |word_name|
         require "langue/japanese/words/#{word_name}"
-        WORD_CLASSES << Langue::Japanese.const_get(word_name.camelize)
+        Langue::Japanese.const_get(word_name.camelize)
       end
-
-      include Logging
 
       def initialize(options = {})
         @logger = options[:logger] || null_logger

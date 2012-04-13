@@ -6,7 +6,7 @@ module Langue
 
         object.class_eval do
           def body_morphemes
-            @body_morphemes ||= self.class.filters.inject(self) {|morphemes, filter| filter[self, morphemes]}
+            @body_morphemes ||= self.class.filters.inject(self) { |morphemes, filter| filter[self, morphemes] }
           end
 
           class << self
