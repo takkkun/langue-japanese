@@ -90,13 +90,17 @@ module Langue
       end
 
       def body_verb?(morphemes, index)
-        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !progressive_verb?(morphemes, index)
+        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !progressive_verb?(morphemes, index) && !ra_verb?(morphemes, index)
       end
 
       def progressive_verb?(morphemes, index)
         noncategorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
           %w(いる てる でる とる どる ちゃう じゃう).include?(m.root_form)
         end
+      end
+
+      def ra_verb?(morphemes, index)
+        noncategorematic_verb?(morphemes, index) && morphemes.at(index) { |m| m.inflected?('五段・ラ行特殊') }
       end
 
       def body_adjective?(morphemes, index)

@@ -166,9 +166,23 @@ describe Langue::Japanese::Verb, '#prefix' do
 end
 
 describe Langue::Japanese::Verb, '#body' do
-  it 'returns the text without the prefix and the attribute' do
-    verb('ぶっぶち話さない').body.should == '話す'
-    verb('超ご連絡しない').body.should == '連絡する'
+  it 'returns the text without the attributes' do
+    verb('話したくなかった').body.should == '話す'
+    verb('連絡したくなかった').body.should == '連絡する'
+  end
+
+  it 'returns the text without the prefix' do
+    verb('ぶっぶち話す').body.should == '話す'
+    verb('超ご連絡する').body.should == '連絡する'
+  end
+
+  it 'returns the text without the progressive verb' do
+    verb('話している').body.should == '話す'
+    verb('話してる').body.should == '話す'
+  end
+
+  it 'returns the text without the ra verb' do
+    verb('話してください').body.should == '話す'
   end
 end
 
