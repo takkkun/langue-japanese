@@ -5,7 +5,7 @@
       - [今日, Noun]
       - [妹, Noun]
       - [一緒, Noun]
-      - - お買い物してきた
+      - - お買い物してきたよ
         - Verb
         - body: 買い物してくる
           prefix: お
@@ -94,7 +94,7 @@
   sentences:
     -
       - [病院, Noun]
-      - - いこう
+      - - いこうね
         - Verb
         - body: いく
       - […。, Period]
@@ -140,7 +140,7 @@
         - Verb
         - body: 聞く
           attributes: [perfective]
-      - - 使う
+      - - 使うか
         - Verb
         - body: 使う
       - [疑問, Noun]

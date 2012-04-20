@@ -62,8 +62,8 @@ module Langue
 
         def take_following_verb(morphemes, index)
           size = 1
-          size += 1 while following_verb?(morphemes, index + size) || conjunctive_particle?(morphemes, index + size) && following_verb?(morphemes, index + size + 1)
-          size += 1 while auxiliary_verb?(morphemes, index + size)
+          size += 1 while following_verb?(morphemes, index + size)
+          size += 1 while final_particle?(morphemes, index + size)
           size
         end
       end

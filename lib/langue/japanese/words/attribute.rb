@@ -69,6 +69,10 @@ module Langue
           true
         elsif index = auxiliary_verb_index('特殊・ヌ')
           morphemes.at(index - 1) { |m| m.inflection_type == '未然形' }
+        elsif index = auxiliary_verb_index('特殊・マス') { |m| m.inflection_type == '未然形' }
+          morphemes.at(index + 1) { |m| m.classified?('助動詞') && m.root_form == 'ん' }
+        else
+          na_final_particle?
         end
       end
 
@@ -81,7 +85,7 @@ module Langue
       end
 
       def include_imperative?
-        self[-1].inflection_type =~ /^命令/
+        self[-1].inflection_type =~ /^命令/ || na_final_particle? || ta_conjunctive_particle?
       end
 
       def noncategorematic_verb_index(root_forms)
@@ -89,11 +93,20 @@ module Langue
       end
 
       def auxiliary_verb_index(inflection)
-        index { |m| m.classified?('助動詞') && m.inflected?(inflection) }
+        index { |m| m.classified?('助動詞') && m.inflected?(inflection) && (block_given? ? yield(m) : true) }
       end
 
       def verb_suffix_index(root_forms)
         index { |m| m.classified?('動詞', '接尾') && root_forms.include?(m.root_form) }
+      end
+
+      def na_final_particle?
+        morphemes.at(-1) { |m| m.classified?('助詞', '終助詞') && m.root_form == 'な' } &&
+        morphemes.at(-2) { |m| m.classified?('動詞') && m.inflection_type == '基本形' }
+      end
+
+      def ta_conjunctive_particle?
+        morphemes.at(-1) { |m| m.classified?('助詞', '接続助詞') && %w(て で).include?(m.root_form) }
       end
     end
   end

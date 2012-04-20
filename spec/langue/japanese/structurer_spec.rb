@@ -69,7 +69,7 @@ describe Langue::Japanese::Structurer, '#structure' do
 
   it 'returns words in the sentences' do
     text = @structurer.structure(@morphemes)
-    text[0].should have(9).items
+    text[0].should have(8).items
     text[1].should have(2).items
   end
 

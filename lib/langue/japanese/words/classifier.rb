@@ -47,6 +47,13 @@ module Langue
         end
       end
 
+      def final_particle?(morphemes, index)
+        morphemes.at(index) do |m|
+          m.classified?('助詞', '終助詞') ||
+          m.classified?('助詞', '副助詞／並立助詞／終助詞')
+        end
+      end
+
       def first_noun?(morphemes, index)
          noun?(morphemes, index)                  &&
         !pronoun?(morphemes, index)               &&
@@ -77,8 +84,10 @@ module Langue
       end
 
       def following_verb?(morphemes, index)
-        (noncategorematic_verb?(morphemes, index) || verb_suffix?(morphemes, index)) ||
-        auxiliary_verb?(morphemes, index)
+        noncategorematic_verb?(morphemes, index) ||
+        verb_suffix?(morphemes, index)           ||
+        auxiliary_verb?(morphemes, index)        ||
+        ta_conjunctive_particle?(morphemes, index)
       end
 
       def following_symbol?(morphemes, index)
@@ -90,10 +99,10 @@ module Langue
       end
 
       def body_verb?(morphemes, index)
-        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !progressive_verb?(morphemes, index) && !ra_verb?(morphemes, index)
+        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !ta_verb?(morphemes, index) && !ra_verb?(morphemes, index)
       end
 
-      def progressive_verb?(morphemes, index)
+      def ta_verb?(morphemes, index)
         noncategorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
           %w(いる てる でる とる どる ちゃう じゃう).include?(m.root_form)
         end
@@ -105,6 +114,12 @@ module Langue
 
       def body_adjective?(morphemes, index)
         categorematic_adjective?(morphemes, index) || noncategorematic_adjective?(morphemes, index)
+      end
+
+      def ta_conjunctive_particle?(morphemes, index)
+        conjunctive_particle?(morphemes, index) && morphemes.at(index) do |m|
+          %w(て で たって).include?(m.root_form)
+        end
       end
     end
   end

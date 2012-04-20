@@ -55,68 +55,58 @@ describe Langue::Japanese::Verb, '.take' do
     }
   end
 
-  it 'takes a successive verb' do
+  it 'takes a verb with noncategorematic verb' do
     @pairs = {
       '話し続けること'     => 2,
       'ぶっ話し続けること' => 3,
       '会話し続けること'   => 3,
-      'ご連絡し続けること' => 4
+      'ご連絡し続けること' => 4,
+      'いる'               => 0
     }
   end
 
-  it 'takes a progressive verb' do
+  it 'takes a verb with conjunctive particle' do
     @pairs = {
       '話していること'     => 3,
-      '話してること'       => 2,
       'ぶっ話していること' => 4,
-      'ぶっ話してること'   => 3,
       '会話していること'   => 4,
-      '会話してること'     => 3,
       'ご連絡していること' => 5,
-      'ご連絡してること'   => 4
+      '遊んで！'           => 2,
+      '話さなかったってさ' => 4,
+      '話して欲しいこと'   => 2,
+      '話しこそすれ'       => 1
     }
   end
 
-  it 'takes a negative verb' do
+  it 'takes a verb with auxiliary verb' do
     @pairs = {
-      '話さないこと'     => 2,
-      'ぶっ話さないこと' => 3,
-      '会話しないこと'   => 3,
-      'ご連絡しないこと' => 4
+      '話したいこと' => 2,
+      '話したこと'   => 2,
+      '話さないこと' => 2,
+      '話さんこと'   => 2,
+      '話します'     => 2,
+      '話しません'   => 3,
+      '話すでしょう' => 3,
+      '話しちゃう'   => 2
     }
   end
 
-  it 'takes an aggressive verb' do
+  it 'takes a verb with final particle' do
     @pairs = {
-      '話したいこと'     => 2,
-      'ぶっ話したいこと' => 3,
-      '会話したいこと'   => 3,
-      'ご連絡したいこと' => 4
-    }
-  end
-
-  it 'takes a perfective verb' do
-    @pairs = {
-      '話したこと'     => 2,
-      'ぶっ話したこと' => 3,
-      '会話したこと'   => 3,
-      'ご連絡したこと' => 4
+      '話すな！'     => 2,
+      '話すか？'     => 2,
+      '話すかしら？' => 2,
+      '話すよ！'     => 2
     }
   end
 
   it 'takes a complex verb' do
     @pairs = {
-      '話し続けていたくなかったこと'     => 7,
-      'ぶっ話し続けていたくなかったこと' => 8,
-      '会話し続けていたくなかったこと'   => 8,
-      'ご連絡し続けていたくなかったこと' => 9
-    }
-  end
-
-  it 'takes a verb by other' do
-    @pairs = {
-      '話しましょう' => 3,
-      '話さぬこと'   => 2
+      '話し続けていたくなかったこと'     =>  7,
+      'ぶっ話し続けていたくなかったこと' =>  8,
+      '会話し続けていたくなかったこと'   =>  8,
+      'ご連絡し続けていたくなかったこと' =>  9,
+      'ご連絡し続けていたくなかったか？' => 10
     }
   end
 
@@ -140,10 +130,12 @@ describe Langue::Japanese::Verb, '#key_morpheme' do
       '話す'           => 0,
       '話し続けている' => 1,
       '話される'       => 0,
+      '話して'         => 0,
       '話してる'       => 0,
       '話している'     => 0,
       '話しとる'       => 0,
-      '話しちゃう'     => 0
+      '話しちゃう'     => 0,
+      '話したって'     => 0
     }.each do |text, index|
       word = verb(text)
       word.key_morpheme.should == word[index]
@@ -198,6 +190,8 @@ describe Langue::Japanese::Verb, '#progressive?' do
 
   it 'returns false if it is not progressive' do
     verb('話されたくなかった').should_not be_progressive
+    verb('話しちゃう').should_not be_progressive
+    verb('富んじゃう').should_not be_progressive
   end
 end
 
@@ -226,10 +220,13 @@ describe Langue::Japanese::Verb, '#negative?' do
   it 'returns true if it is negative' do
     verb('話さない').should be_negative
     verb('話さぬ').should be_negative
+    verb('話しません').should be_negative
+    verb('話すな').should be_negative
   end
 
   it 'returns false if it is not negative' do
     verb('話されていたかった').should_not be_negative
+    verb('話したな').should_not be_negative
   end
 end
 
@@ -248,9 +245,12 @@ describe Langue::Japanese::Verb, '#imperative?' do
   it 'returns true if it is imperative' do
     verb('話せ').should be_imperative
     verb('話してください').should be_imperative
+    verb('話して').should be_imperative
+    verb('話すな').should be_imperative
   end
 
   it 'returns false if it is not imperative' do
     verb('話されていたくなかった').should_not be_imperative
+    verb('話したな').should_not be_imperative
   end
 end
