@@ -5,7 +5,7 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
-    class Verb < Word
+    class Verb < ::Langue::Verb
       include Prefix
       include Attribute
 

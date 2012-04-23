@@ -2,6 +2,12 @@
 require 'spec_helper'
 require 'langue/japanese/words/pronoun'
 
+describe Langue::Japanese::Pronoun do
+  it 'inherits Langue::Pronoun' do
+    described_class.superclass.should == Langue::Pronoun
+  end
+end
+
 describe Langue::Japanese::Pronoun, '.take' do
   after do
     @pairs.each do |text, size|

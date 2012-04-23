@@ -2,6 +2,12 @@
 require 'spec_helper'
 require 'langue/japanese/words/verb'
 
+describe Langue::Japanese::Verb do
+  it 'inherits Langue::Verb' do
+    described_class.superclass.should == Langue::Verb
+  end
+end
+
 describe Langue::Japanese::Verb, '.take' do
   after do
     @pairs.each do |text, size|

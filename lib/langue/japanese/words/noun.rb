@@ -4,7 +4,7 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
-    class Noun < Word
+    class Noun < ::Langue::Noun
       INHIBITED_FIRST_CHARS = %w(ぁ ァ ぃ ィ ぅ ゥ ぇ ェ ぉ ォ っ ッ ー)
       INHIBITED_LAST_CHARS  = %w()
 

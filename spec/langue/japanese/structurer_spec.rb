@@ -10,6 +10,11 @@ describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
   it 'has the word classes' do
     @word_classes.should == [
       Langue::Japanese::Period,
+      Langue::Japanese::Interjection,
+      Langue::Japanese::Determiner,
+      Langue::Japanese::Conjunction,
+      Langue::Japanese::Particle,
+      Langue::Japanese::Adverb,
       Langue::Japanese::Verb,
       Langue::Japanese::Adjective,
       Langue::Japanese::AdjectiveNoun,

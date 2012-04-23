@@ -4,7 +4,7 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
-    class Period < Word
+    class Period < ::Langue::Period
       COMMAS = %w(, ， 、)
       DOTS   = COMMAS + %w(. ． 。 ・ ‥ …)
       MARKS  = %w(! ！ ? ？)

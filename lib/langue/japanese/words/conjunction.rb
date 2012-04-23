@@ -3,12 +3,16 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
-    class Pronoun < ::Langue::Pronoun
+    class Conjunction < ::Langue::Conjunction
       class << self
         include Classifier
 
         def take(morphemes, index)
-          pronoun?(morphemes, index) ? 1 : 0
+          if conjunction?(morphemes, index)
+            1
+          else
+            0
+          end
         end
       end
     end

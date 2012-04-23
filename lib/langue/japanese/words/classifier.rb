@@ -20,11 +20,24 @@ module Langue
         :categorematic_verb    => %w(動詞 自立),
         :noncategorematic_verb => %w(動詞 非自立),
 
+        # adverb
+        :adverb => %w(副詞),
+
         # auxiliary verb
         :auxiliary_verb => %w(助動詞),
 
         # particle
+        :particle             => %w(助詞),
         :conjunctive_particle => %w(助詞 接続助詞),
+
+        # conjunction
+        :conjunction => %w(接続詞),
+
+        # determiner
+        :determiner => %w(連体詞),
+
+        # interjection
+        :interjection => %w(感動詞),
 
         # prefix
         :noun_prefix      => %w(接頭詞 名詞接続),

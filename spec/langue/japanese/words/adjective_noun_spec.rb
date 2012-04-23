@@ -2,6 +2,12 @@
 require 'spec_helper'
 require 'langue/japanese/words/adjective_noun'
 
+describe Langue::Japanese::AdjectiveNoun do
+  it 'inherits Langue::Adjective' do
+    described_class.superclass.should == Langue::Adjective
+  end
+end
+
 describe Langue::Japanese::AdjectiveNoun, '.take' do
   after do
     @pairs.each do |text, size|
