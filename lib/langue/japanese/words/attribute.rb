@@ -110,7 +110,9 @@ module Langue
       end
 
       def ta_conjunctive_particle?
-        morphemes.at(-1) { |m| m.classified?('助詞', '接続助詞') && %w(て で).include?(m.root_form) }
+        index = size - 1
+        index -= 1 while morphemes.at(index) { |m| m.classified?('助詞', '終助詞') }
+        morphemes.at(index) { |m| m.classified?('助詞', '接続助詞') && %w(て で).include?(m.root_form) }
       end
     end
   end
