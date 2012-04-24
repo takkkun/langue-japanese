@@ -246,6 +246,7 @@ describe Langue::Japanese::Verb, '#negative?' do
   it 'returns false if it is not negative' do
     verb('話されていたかった').should_not be_negative
     verb('話したな').should_not be_negative
+    verb('話さなくない').should_not be_negative
   end
 end
 

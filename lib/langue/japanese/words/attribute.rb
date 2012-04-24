@@ -69,7 +69,7 @@ module Langue
       end
 
       def include_negative?
-        if auxiliary_verb_index('特殊・ナイ')
+        if nai_auxiliary_verb_count.odd?
           true
         elsif index = auxiliary_verb_index('特殊・ヌ')
           morphemes.at(index - 1) { |m| m.inflection_type == '未然形' }
@@ -102,6 +102,10 @@ module Langue
 
       def verb_suffix_index(root_forms)
         index { |m| m.classified?('動詞', '接尾') && root_forms.include?(m.root_form) }
+      end
+
+      def nai_auxiliary_verb_count
+        count { |m| m.classified?('助動詞') && m.inflected?('特殊・ナイ') }
       end
 
       def na_final_particle?
