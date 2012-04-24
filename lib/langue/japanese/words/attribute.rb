@@ -60,6 +60,10 @@ module Langue
         verb_suffix_index(%w(れる られる))
       end
 
+      def include_causative?
+        verb_suffix_index(%w(せる させる))
+      end
+
       def include_aggressive?
         auxiliary_verb_index('特殊・タイ')
       end

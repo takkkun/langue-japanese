@@ -9,7 +9,7 @@ module Langue
       include Prefix
       include Attribute
 
-      has :progressive, :passive, :aggressive, :negative, :perfective, :imperative
+      has :progressive, :passive, :causative, :aggressive, :negative, :perfective, :imperative
 
       class << self
         include Classifier

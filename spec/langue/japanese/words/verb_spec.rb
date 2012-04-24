@@ -57,7 +57,9 @@ describe Langue::Japanese::Verb, '.take' do
       '話されること'     => 2,
       'ぶっ放されること' => 3,
       '会話されること'   => 3,
-      'ご連絡されること' => 4
+      'ご連絡されること' => 4,
+      '聞かせること'     => 2,
+      'ぶっ聞かせること' => 3
     }
   end
 
@@ -209,6 +211,17 @@ describe Langue::Japanese::Verb, '#passive?' do
 
   it 'returns false if it is not passive' do
     verb('話していたくなかった').should_not be_passive
+  end
+end
+
+describe Langue::Japanese::Verb, '#causative?' do
+  it 'returns true if it is causative' do
+    verb('聞かせる').should be_causative
+    verb('続けさせる').should be_causative
+  end
+
+  it 'returns false if it is not causative' do
+    verb('聞かれていたくなかった').should_not be_causative
   end
 end
 
