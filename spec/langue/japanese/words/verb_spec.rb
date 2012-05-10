@@ -38,8 +38,7 @@ describe Langue::Japanese::Verb, '.take' do
     @pairs = {
       '会話すること' => 2,
       '連絡すること' => 2,
-      '会話だ'       => 0,
-      'すること'     => 0
+      '会話だ'       => 0
     }
   end
 
@@ -120,10 +119,6 @@ describe Langue::Japanese::Verb, '.take' do
 
   it 'does not take special verbs' do
     @pairs = {
-      'しましょう'         => 0,
-      'ぶっしましょう'     => 0,
-      'なるでしょう'       => 0,
-      'ぶちなること'       => 0,
       '思い続けていること' => 0,
       'ぶっ思います'       => 0,
       'おもわれたいこと'   => 0,

@@ -77,7 +77,7 @@ module Langue
 
       def first_verb?(morphemes, index)
         categorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
-          !%w(する なる 思う おもう).include?(m.root_form)
+          !%w(思う おもう).include?(m.root_form)
         end
       end
 

@@ -30,8 +30,10 @@
       - [が, Particle]
       - [延期, Noun]
       - [に, Particle]
+      - [なって, Verb]
       - [ちょっとホッ, Adverb]
       - [と, Particle]
+      - [している, Verb]
 
 -
   text: こんなに部屋が寒くてはインターネットもままならぬ
@@ -47,6 +49,7 @@
       - [インターネット, Noun]
       - [も, Particle]
       - [まま, Adverb]
+      - [ならぬ, Verb]
 
 -
   text: 牛乳って意外と甘い？
