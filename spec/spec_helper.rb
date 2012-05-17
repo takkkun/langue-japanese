@@ -27,7 +27,7 @@ def structurer_stub
   end
 end
 
-def tagger_stub(nodes = nil)
+def parser_tagger_stub(nodes = nil)
   stub.tap do |s|
     MeCab::Tagger.stub!(:new).and_return(s)
 
@@ -37,6 +37,14 @@ def tagger_stub(nodes = nil)
       s.stub!(:parseToNode).and_return(make_node('', node))
     end
 
+    yield s if block_given?
+  end
+end
+
+def parser_model_stub(parser_tagger = nil)
+  stub.tap do |s|
+    MeCab::Model.stub!(:create).and_return(s)
+    s.stub!(:createTagger).and_return(parser_tagger || parser_tagger_stub)
     yield s if block_given?
   end
 end
