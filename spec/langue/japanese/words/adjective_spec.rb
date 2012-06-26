@@ -94,6 +94,15 @@ describe Langue::Japanese::Adjective, '#key_morpheme' do
       word.key_morpheme.should be_nil
     end
   end
+
+  context 'with word that is not adjective' do
+    it 'raises Langue::Japanese::InvalidWord' do
+      %w(会話 話す).each do |text|
+        word = adjective(text)
+        lambda { word.key_morpheme }.should raise_error(Langue::Japanese::InvalidWord, %("#{text}" is invalid a word as an adjective))
+      end
+    end
+  end
 end
 
 describe Langue::Japanese::Adjective, '#prefix' do

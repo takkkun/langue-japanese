@@ -5,6 +5,8 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
+    class InvalidWord < StandardError; end
+
     class Adjective < ::Langue::Adjective
       include Prefix
       include Attribute
@@ -47,7 +49,12 @@ module Langue
                             nil
                           else
                             index = size - 1
-                            index -= 1 while !self.class.body_adjective?(morphemes, index)
+
+                            while !self.class.body_adjective?(morphemes, index)
+                              index -= 1
+                              raise InvalidWord, %("#{text}" is invalid a word as an adjective) unless self[index]
+                            end
+
                             self[index]
                           end
         end
