@@ -67,9 +67,9 @@ def adjective(text)
   Langue::Japanese::Adjective.new(morphemes)
 end
 
-def adjective_noun(text)
+def adjectival_noun(text)
   morphemes = parser.parse(text)
-  Langue::Japanese::AdjectiveNoun.new(morphemes)
+  Langue::Japanese::AdjectivalNoun.new(morphemes)
 end
 
 def verb(text)

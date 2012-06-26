@@ -18,7 +18,7 @@ describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
       Langue::Japanese::Adverb,
       Langue::Japanese::Verb,
       Langue::Japanese::Adjective,
-      Langue::Japanese::AdjectiveNoun,
+      Langue::Japanese::AdjectivalNoun,
       Langue::Japanese::Pronoun,
       Langue::Japanese::Noun
     ]

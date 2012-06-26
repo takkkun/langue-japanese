@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
-require 'langue/japanese/words/adjective_noun'
+require 'langue/japanese/words/adjectival_noun'
 
-describe Langue::Japanese::AdjectiveNoun do
+describe Langue::Japanese::AdjectivalNoun do
   it 'inherits Langue::Adjective' do
     described_class.superclass.should == Langue::Adjective
   end
 end
 
-describe Langue::Japanese::AdjectiveNoun, '.take' do
+describe Langue::Japanese::AdjectivalNoun, '.take' do
   after do
     @pairs.each do |text, size|
       morphemes = parser.parse(text)
@@ -16,7 +16,7 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
     end
   end
 
-  it 'takes an adjective noun' do
+  it 'takes an adjectival noun' do
     @pairs = {
       '大丈夫だ'       => 1,
       '健康だ'         => 1,
@@ -26,7 +26,7 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
     }
   end
 
-  it 'takes an adjective noun with prefix' do
+  it 'takes an adjectival noun with prefix' do
     @pairs = {
       '超大丈夫だ'       => 2,
       '反健康だ'         => 2,
@@ -37,7 +37,7 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
     }
   end
 
-  it 'takes an adjective noun with suffix' do
+  it 'takes an adjectival noun with suffix' do
     @pairs = {
       '病気がちだ' => 2,
       '犬好きだ'   => 2,
@@ -47,7 +47,7 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
     }
   end
 
-  it 'takes a successive adjective noun' do
+  it 'takes a successive adjectival noun' do
     @pairs = {
       '健康大丈夫だ'         => 2,
       '健康大丈夫がちだ'     => 2,
@@ -55,7 +55,7 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
     }
   end
 
-  it 'takes a complex adjective' do
+  it 'takes a complex adjectival noun' do
     @pairs = {
       '超病気がちだ'           => 3,
       '超漆黒病気がちだ'       => 4,
@@ -68,15 +68,15 @@ describe Langue::Japanese::AdjectiveNoun, '.take' do
   end
 end
 
-describe Langue::Japanese::AdjectiveNoun, '#prefix' do
+describe Langue::Japanese::AdjectivalNoun, '#prefix' do
   it 'returns the prefix' do
-    adjective_noun('反超病気がち').prefix.should == '反超'
+    adjectival_noun('反超病気がち').prefix.should == '反超'
   end
 end
 
-describe Langue::Japanese::AdjectiveNoun, '#body' do
-  it 'returns the text with the prefix' do
-    adjective_noun('反超病気がち').body.should == '病気がち'
+describe Langue::Japanese::AdjectivalNoun, '#body' do
+  it 'returns the text without the prefix' do
+    adjectival_noun('反超病気がち').body.should == '病気がち'
   end
 end
 

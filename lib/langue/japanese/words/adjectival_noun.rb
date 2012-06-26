@@ -4,7 +4,7 @@ require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
-    class AdjectiveNoun < ::Langue::Adjective
+    class AdjectivalNoun < ::Langue::Adjective
       include Prefix
 
       class << self
