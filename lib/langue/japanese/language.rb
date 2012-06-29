@@ -18,6 +18,11 @@ module Langue
       end
       depend_to :structurer, 'langue/japanese/structurer'
 
+      def inflector
+        @inflector ||= Inflector.new(@options)
+      end
+      depend_to :inflector, 'langue/japanese/inflector'
+
       def parse(text)
         parser.parse(text)
       end
@@ -28,6 +33,10 @@ module Langue
 
       def structure(morphemes)
         structurer.structure(morphemes)
+      end
+
+      def inflect(word)
+        inflector.inflect(word)
       end
     end
   end

@@ -27,6 +27,13 @@ def structurer_stub
   end
 end
 
+def inflector_stub
+  operator_stub('inflector', :Inflector) do |s|
+    s.stub!(:inflect).and_return('value returning from #inflect')
+    yield s if block_given?
+  end
+end
+
 def parser_tagger_stub(nodes = nil)
   stub.tap do |s|
     MeCab::Tagger.stub!(:new).and_return(s)

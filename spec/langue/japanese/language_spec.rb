@@ -62,6 +62,23 @@ describe Langue::Japanese::Language, '#structurer' do
   end
 end
 
+describe Langue::Japanese::Language, '#inflector' do
+  before do
+    @language = described_class.new(:key => 'value')
+  end
+
+  it 'calls Langue::Japanese::Inflector.new with the options' do
+    inflector_stub
+    Langue::Japanese::Inflector.should_receive(:new).with(:key => 'value')
+    @language.inflector
+  end
+
+  it 'returns an instance of Langue::Japanese::Inflector' do
+    inflector = inflector_stub
+    @language.inflector.should == inflector
+  end
+end
+
 describe Langue::Japanese::Language, '#parse' do
   before do
     @language = described_class.new(:key => 'value')
@@ -116,5 +133,24 @@ describe Langue::Japanese::Language, '#structure' do
   it 'returns the value returning from Langue::Japanese::Structurer#structure' do
     structurer_stub
     @language.structure('morphemes').should == 'value returning from structure method'
+  end
+end
+
+describe Langue::Japanese::Language, '#inflect' do
+  before do
+    @language = described_class.new(:key => 'value')
+  end
+
+  it 'calls #inflect of the inflector with the text' do
+    inflector_stub do |m|
+      m.should_receive(:inflect).with('word')
+    end
+
+    @language.inflect('word')
+  end
+
+  it 'returns the value returning from Langue::Japanese::Inflector#inflect' do
+    inflector_stub
+    @language.inflect('word').should == 'value returning from #inflect'
   end
 end
