@@ -141,16 +141,16 @@ describe Langue::Japanese::Language, '#inflect' do
     @language = described_class.new(:key => 'value')
   end
 
-  it 'calls #inflect of the inflector with the text' do
+  it 'calls #inflect of the inflector with the inflectional classification, the word, the inflectional form and the options' do
     inflector_stub do |m|
-      m.should_receive(:inflect).with('word')
+      m.should_receive(:inflect).with('classification', 'word', 'form', :key => 'value')
     end
 
-    @language.inflect('word')
+    @language.inflect('classification', 'word', 'form', :key => 'value')
   end
 
   it 'returns the value returning from Langue::Japanese::Inflector#inflect' do
     inflector_stub
-    @language.inflect('word').should == 'value returning from #inflect'
+    @language.inflect('classification', 'word', 'form', :key => 'value').should == 'value returning from #inflect'
   end
 end

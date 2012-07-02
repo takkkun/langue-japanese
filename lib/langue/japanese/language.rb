@@ -35,8 +35,8 @@ module Langue
         structurer.structure(morphemes)
       end
 
-      def inflect(word)
-        inflector.inflect(word)
+      def inflect(classification, word, form, options = {})
+        inflector.inflect(classification, word, form, options)
       end
     end
   end
