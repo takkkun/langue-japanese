@@ -259,6 +259,7 @@ end
 describe Langue::Japanese::Verb, '#imperative?' do
   it 'returns true if it is imperative' do
     verb('話せ').should be_imperative
+    verb('寝ろよ').should be_imperative
     verb('話してください').should be_imperative
     verb('話して').should be_imperative
     verb('話してよ').should be_imperative

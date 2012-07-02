@@ -89,9 +89,11 @@ module Langue
       end
 
       def include_imperative?
-        self[-1].inflection_type =~ /^命令/ ||
-        na_final_particle_with_conclusive?  ||
-        na_final_particle_with_conjunctive? ||
+        last = reverse.drop_while { |m| m.classified?('助詞', '終助詞') }.first
+
+        (last and last.inflection_type =~ /^命令/) ||
+        na_final_particle_with_conclusive?         ||
+        na_final_particle_with_conjunctive?        ||
         ta_conjunctive_particle?
       end
 
