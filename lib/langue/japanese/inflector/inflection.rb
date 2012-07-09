@@ -10,7 +10,7 @@ module Langue
           'と' => 'ど'
         }
 
-        SUMU = Hash[NIGORU.map { |k, v| [v, k] }].update('ぢ' => 'ち')
+        SUMU = NIGORU.invert.merge('ぢ' => 'ち')
 
         # @param [String] base_suffix the base suffix
         # @param [Hash<String, String>] suffixes suffix for each the
