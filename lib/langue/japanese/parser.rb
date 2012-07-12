@@ -86,7 +86,7 @@ module Langue
       def create_morpheme(surface, feature)
         values = feature.split(',').map { |v| v == '*' ? nil : v }
         values[1..3] = [values[1..3].take_while {|value| !value.nil?}]
-        values.unshift(surface.downcase)
+        values.unshift(surface)
         Morpheme.new(Hash[Morpheme::KEYS.zip(values)])
       end
     end
