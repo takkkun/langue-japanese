@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 require 'langue/word'
+require 'langue/japanese/words/prefix'
 require 'langue/japanese/words/classifier'
 
 module Langue
   module Japanese
     class Noun < ::Langue::Noun
+      include Prefix
+
       INHIBITED_FIRST_CHARS = %w(ぁ ァ ぃ ィ ぅ ゥ ぇ ェ ぉ ォ っ ッ ー)
       INHIBITED_LAST_CHARS  = %w()
 
@@ -55,6 +58,14 @@ module Langue
           size += 1 while adverbable_noun?(morphemes, index + size)
           size
         end
+      end
+
+      def prefix_morphemes
+        @prefix_morphemes ||= begin
+                                size = 0
+                                size += 1 while self.class.noun_prefix?(morphemes, size)
+                                morphemes[0, size]
+                              end
       end
     end
   end

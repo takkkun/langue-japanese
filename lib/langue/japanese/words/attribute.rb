@@ -21,20 +21,6 @@ module Langue
         end
       end
 
-      def body
-        unless instance_variable_defined?(:@body)
-          @body = if body_morphemes.empty?
-                    nil
-                  else
-                    morphemes = body_morphemes.dup
-                    last_morpheme = morphemes.pop
-                    morphemes.map(&:text).join + last_morpheme.root_form
-                  end
-        end
-
-        @body
-      end
-
       if RUBY_VERSION.to_f < 1.9
         def index(value = nil)
           if value

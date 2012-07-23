@@ -9,6 +9,20 @@ module Langue
             @body_morphemes ||= self.class.filters.inject(self) { |morphemes, filter| filter[self, morphemes] }
           end
 
+          def body
+            unless instance_variable_defined?(:@body)
+              @body = if body_morphemes.empty?
+                        nil
+                      else
+                        morphemes = body_morphemes.dup
+                        last_morpheme = morphemes.pop
+                        morphemes.map(&:text).join + last_morpheme.root_form
+                      end
+            end
+
+            @body
+          end
+
           class << self
             def filters
               @filters ||= []
