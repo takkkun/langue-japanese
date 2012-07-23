@@ -170,7 +170,7 @@
   text: iPhone 4Sにただで替えられるって聞いたけど、本当に使うかは疑問なので……
   sentences:
     -
-      - [iphone4s, Noun]
+      - [iPhone4S, Noun]
       - [に, Particle]
       - [ただ, Noun]
       - [で, Particle]
