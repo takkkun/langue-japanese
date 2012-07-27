@@ -93,5 +93,6 @@ end
 describe Langue::Japanese::Noun, '#body' do
   it 'returns the text with the prefix' do
     noun('超反会話').body.should == '会話'
+    noun('超反会話♡').body.should == '会話♡'
   end
 end
