@@ -4,15 +4,13 @@ require 'langue/japanese/words/classifier'
 module Langue
   module Japanese
     class Conjunction < ::Langue::Conjunction
-      class << self
-        include Classifier
+      extend Classifier
 
-        def take(morphemes, index)
-          if conjunction?(morphemes, index)
-            1
-          else
-            0
-          end
+      def self.take(morphemes, index)
+        if conjunction?(morphemes, index)
+          1
+        else
+          0
         end
       end
     end

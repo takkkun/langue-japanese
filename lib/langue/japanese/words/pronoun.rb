@@ -4,12 +4,10 @@ require 'langue/japanese/words/classifier'
 module Langue
   module Japanese
     class Pronoun < ::Langue::Pronoun
-      class << self
-        include Classifier
+      extend Classifier
 
-        def take(morphemes, index)
-          pronoun?(morphemes, index) ? 1 : 0
-        end
+      def self.take(morphemes, index)
+        pronoun?(morphemes, index) ? 1 : 0
       end
     end
   end

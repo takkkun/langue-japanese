@@ -5,17 +5,18 @@ module Langue
   module Japanese
     module Attribute
       def self.included(object)
-        object.class_eval do
-          include MorphemeFilter
-          filter { |word, morphemes| word.empty? ? morphemes : morphemes[0..morphemes.index(word.key_morpheme)] }
+        object.extend(ClassMethods)
+        object.class_eval { include MorphemeFilter }
+        object.filter { |word, morphemes| word.empty? ? morphemes : morphemes[0..morphemes.index(word.key_morpheme)] }
+      end
 
-          def self.has(*attrs)
-            attrs.each do |attr|
-              define_method("#{attr}?") do
-                @attrs ||= {}
-                @attrs[attr] = !!__send__("include_#{attr}?") unless @attrs.key?(attr)
-                @attrs[attr]
-              end
+      module ClassMethods
+        def has(*attrs)
+          attrs.each do |attr|
+            define_method("#{attr}?") do
+              @attrs ||= {}
+              @attrs[attr] = !!__send__("include_#{attr}?") unless @attrs.key?(attr)
+              @attrs[attr]
             end
           end
         end
