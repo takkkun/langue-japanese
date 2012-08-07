@@ -1326,4 +1326,54 @@ describe Langue::Japanese::Inflector, '#inflect' do
       end
     end
   end
+
+  context 'with 特殊・デス' do
+    before do
+      @inflection_name = '特殊・デス'
+      @word = 'です'
+    end
+
+    it 'inflects to 未然形' do
+      @inflector.inflect(@inflection_name, @word, '未然形').should == 'でしょ'
+    end
+
+    it 'inflects to 連用形' do
+      @inflector.inflect(@inflection_name, @word, '連用形').should == 'でし'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'です'
+    end
+  end
+
+  context 'with 特殊・マス' do
+    before do
+      @inflection_name = '特殊・マス'
+      @word = 'ます'
+    end
+
+    it 'inflects to 未然形' do
+      @inflector.inflect(@inflection_name, @word, '未然形').should == 'ませ'
+    end
+
+    it 'inflects to 未然ウ接続' do
+      @inflector.inflect(@inflection_name, @word, '未然ウ接続').should == 'ましょ'
+    end
+
+    it 'inflects to 連用形' do
+      @inflector.inflect(@inflection_name, @word, '連用形').should == 'まし'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'ます'
+    end
+
+    it 'inflects to 仮定形' do
+      @inflector.inflect(@inflection_name, @word, '仮定形').should == 'ますれ'
+    end
+
+    it 'inflects to 命令形' do
+      @inflector.inflect(@inflection_name, @word, '命令形').should == 'ませ'
+    end
+  end
 end

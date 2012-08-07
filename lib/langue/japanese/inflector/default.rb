@@ -388,4 +388,19 @@ Langue::Japanese::Inflector.inflections do
 
   category *auxiliary_verb_forms do
   end
+
+  inflection '特殊・デス', 'す', {
+    '未然形' => 'しょ',
+    '連用形' => 'し',
+    '終止形' => 'す'
+  }
+
+  inflection '特殊・マス', 'す', {
+    '終止形'     => 'す',
+    '未然形'     => 'せ',
+    '未然ウ接続' => 'しょ',
+    '連用形'     => 'し',
+    '仮定形'     => 'すれ',
+    '命令形'     => 'せ'
+  }
 end
