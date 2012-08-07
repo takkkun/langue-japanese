@@ -1327,6 +1327,124 @@ describe Langue::Japanese::Inflector, '#inflect' do
     end
   end
 
+  context 'with 特殊・ナイ' do
+    before do
+      @inflection_name = '特殊・ナイ'
+      @word = 'ない'
+    end
+
+    it 'inflects to 未然ウ接続' do
+      @inflector.inflect(@inflection_name, @word, '未然ウ接続').should == 'なかろ'
+    end
+
+    it 'inflects to 未然ヌ接続' do
+      @inflector.inflect(@inflection_name, @word, '未然ヌ接続').should == 'なから'
+    end
+
+    it 'inflects to 連用タ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用タ接続').should == 'なかっ'
+    end
+
+    it 'inflects to 連用テ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用テ接続').should == 'なく'
+    end
+
+    it 'inflects to 連用デ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用デ接続').should == 'ない'
+    end
+
+    it 'inflects to 連用ゴザイ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用ゴザイ接続').should == 'のう'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'ない'
+    end
+
+    it 'inflects to 音便終止形' do
+      @inflector.inflect(@inflection_name, @word, '音便終止形').should == 'ねえ'
+    end
+
+    it 'inflects to 体言接続' do
+      @inflector.inflect(@inflection_name, @word, '体言接続').should == 'なき'
+    end
+
+    it 'inflects to 仮定形' do
+      @inflector.inflect(@inflection_name, @word, '仮定形').should == 'なけれ'
+    end
+
+    it 'inflects to 仮定縮約１' do
+      @inflector.inflect(@inflection_name, @word, '仮定縮約１').should == 'なけりゃ'
+    end
+
+    it 'inflects to 仮定縮約２' do
+      @inflector.inflect(@inflection_name, @word, '仮定縮約２').should == 'なきゃ'
+    end
+
+    it 'inflects to ガル接続' do
+      @inflector.inflect(@inflection_name, @word, 'ガル接続').should == 'な'
+    end
+
+    it 'inflects to 命令形' do
+      @inflector.inflect(@inflection_name, @word, '命令形').should == 'なかれ'
+    end
+  end
+
+  context 'with 特殊・タイ' do
+    before do
+      @inflection_name = '特殊・タイ'
+      @word = 'たい'
+    end
+
+    it 'inflects to 未然ウ接続' do
+      @inflector.inflect(@inflection_name, @word, '未然ウ接続').should == 'たかろ'
+    end
+
+    it 'inflects to 未然ヌ接続' do
+      @inflector.inflect(@inflection_name, @word, '未然ヌ接続').should == 'たから'
+    end
+
+    it 'inflects to 連用タ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用タ接続').should == 'たかっ'
+    end
+
+    it 'inflects to 連用テ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用テ接続').should == 'たく'
+    end
+
+    it 'inflects to 連用ゴザイ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用ゴザイ接続').should == 'とう'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'たい'
+    end
+
+    it 'inflects to 音便終止形' do
+      @inflector.inflect(@inflection_name, @word, '音便終止形').should == 'てえ'
+    end
+
+    it 'inflects to 体言接続' do
+      @inflector.inflect(@inflection_name, @word, '体言接続').should == 'たき'
+    end
+
+    it 'inflects to 仮定形' do
+      @inflector.inflect(@inflection_name, @word, '仮定形').should == 'たけれ'
+    end
+
+    it 'inflects to 仮定縮約１' do
+      @inflector.inflect(@inflection_name, @word, '仮定縮約１').should == 'たけりゃ'
+    end
+
+    it 'inflects to 仮定縮約２' do
+      @inflector.inflect(@inflection_name, @word, '仮定縮約２').should == 'たきゃ'
+    end
+
+    it 'inflects to ガル接続' do
+      @inflector.inflect(@inflection_name, @word, 'ガル接続').should == 'た'
+    end
+  end
+
   context 'with 特殊・デス' do
     before do
       @inflection_name = '特殊・デス'
