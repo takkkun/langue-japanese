@@ -1376,4 +1376,23 @@ describe Langue::Japanese::Inflector, '#inflect' do
       @inflector.inflect(@inflection_name, @word, '命令形').should == 'ませ'
     end
   end
+
+  context 'with 特殊・タ' do
+    before do
+      @inflection_name = '特殊・タ'
+      @word = 'た'
+    end
+
+    it 'inflects to 未然形' do
+      @inflector.inflect(@inflection_name, @word, '未然形').should == 'たろ'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'た'
+    end
+
+    it 'inflects to 仮定形' do
+      @inflector.inflect(@inflection_name, @word, '仮定形').should == 'たら'
+    end
+  end
 end

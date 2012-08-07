@@ -403,4 +403,10 @@ Langue::Japanese::Inflector.inflections do
     '仮定形'     => 'すれ',
     '命令形'     => 'せ'
   }
+
+  inflection '特殊・タ', '', {
+    '未然形' => 'ろ',
+    '終止形' => '',
+    '仮定形' => 'ら'
+  }
 end
