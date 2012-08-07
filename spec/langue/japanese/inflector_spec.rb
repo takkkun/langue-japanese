@@ -1395,4 +1395,39 @@ describe Langue::Japanese::Inflector, '#inflect' do
       @inflector.inflect(@inflection_name, @word, '仮定形').should == 'たら'
     end
   end
+
+  context 'with 特殊・ダ' do
+    before do
+      @inflection_name = '特殊・ダ'
+      @word = 'だ'
+    end
+
+    it 'inflects to 未然形' do
+      @inflector.inflect(@inflection_name, @word, '未然形').should == 'だろ'
+    end
+
+    it 'inflects to 連用形' do
+      @inflector.inflect(@inflection_name, @word, '連用形').should == 'で'
+    end
+
+    it 'inflects to 連用タ接続' do
+      @inflector.inflect(@inflection_name, @word, '連用タ接続', :following => 'た').should == 'だった'
+    end
+
+    it 'inflects to 終止形' do
+      @inflector.inflect(@inflection_name, @word, '終止形').should == 'だ'
+    end
+
+    it 'inflects to 体言接続' do
+      @inflector.inflect(@inflection_name, @word, '体言接続').should == 'な'
+    end
+
+    it 'inflects to 仮定形' do
+      @inflector.inflect(@inflection_name, @word, '仮定形').should == 'なら'
+    end
+
+    it 'inflects to 命令形' do
+      @inflector.inflect(@inflection_name, @word, '命令形').should == 'なれ'
+    end
+  end
 end
