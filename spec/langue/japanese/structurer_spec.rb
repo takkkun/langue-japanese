@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'spec_helper'
 require 'langue/japanese/structurer'
 require 'yaml'
 
@@ -10,9 +11,14 @@ describe Langue::Japanese::Structurer, '::WORD_CLASSES' do
   it 'has the word classes' do
     @word_classes.should == [
       Langue::Japanese::Period,
+      Langue::Japanese::Interjection,
+      Langue::Japanese::Determiner,
+      Langue::Japanese::Conjunction,
+      Langue::Japanese::Particle,
+      Langue::Japanese::Adverb,
       Langue::Japanese::Verb,
       Langue::Japanese::Adjective,
-      Langue::Japanese::AdjectiveNoun,
+      Langue::Japanese::AdjectivalNoun,
       Langue::Japanese::Pronoun,
       Langue::Japanese::Noun
     ]
@@ -69,7 +75,7 @@ describe Langue::Japanese::Structurer, '#structure' do
 
   it 'returns words in the sentences' do
     text = @structurer.structure(@morphemes)
-    text[0].should have(9).items
+    text[0].should have(8).items
     text[1].should have(2).items
   end
 

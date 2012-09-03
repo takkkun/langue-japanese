@@ -12,9 +12,14 @@ module Langue
 
       WORD_CLASSES = %w(
         period
+        interjection
+        determiner
+        conjunction
+        particle
+        adverb
         verb
         adjective
-        adjective_noun
+        adjectival_noun
         pronoun
         noun
       ).map do |word_name|

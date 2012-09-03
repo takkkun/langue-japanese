@@ -2,23 +2,46 @@ module Langue
   module Japanese
     module MorphemeFilter
       def self.included(object)
-        return if object.respond_to?(:filter)
+        object.extend(ClassMethods)
+      end
 
-        object.class_eval do
-          def body_morphemes
-            @body_morphemes ||= self.class.filters.inject(self) { |morphemes, filter| filter[self, morphemes] }
-          end
+      def body_morphemes
+        @body_morphemes ||= self.class.apply_filters(self)
+      end
 
-          class << self
-            def filters
-              @filters ||= []
-            end
+      def body
+        @body = create_body unless instance_variable_defined?(:@body)
+        @body
+      end
 
-            def filter(&filter)
-              remove_instance_variable(:@body_morphemes) if instance_variable_defined?(:@body_morphemes)
-              filters << filter
-            end
-          end
+      private
+
+      def create_body
+        return nil if body_morphemes.empty?
+
+        morphemes = body_morphemes[0..-2].map(&:text)
+
+        if inflection
+          morphemes << body_morphemes[-1].root_form
+        else
+          morphemes << body_morphemes[-1].text
+        end
+
+        morphemes.join
+      end
+
+      module ClassMethods
+        def filters
+          @filters ||= []
+        end
+
+        def filter(&filter)
+          remove_instance_variable(:@body_morphemes) if instance_variable_defined?(:@body_morphemes)
+          filters << filter
+        end
+
+        def apply_filters(original_morphemes)
+          filters.inject(original_morphemes) { |morphemes, filter| filter[original_morphemes, morphemes] }
         end
       end
     end

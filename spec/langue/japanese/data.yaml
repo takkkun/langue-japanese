@@ -3,9 +3,12 @@
   sentences:
     -
       - [今日, Noun]
+      - [は, Particle]
       - [妹, Noun]
+      - [と, Particle]
       - [一緒, Noun]
-      - - お買い物してきた
+      - [に, Particle]
+      - - お買い物してきたよ
         - Verb
         - body: 買い物してくる
           prefix: お
@@ -22,24 +25,39 @@
   sentences:
     -
       - [例, Noun]
+      - [の, Particle]
       - [女子会, Noun]
+      - [が, Particle]
       - [延期, Noun]
+      - [に, Particle]
+      - [なって, Verb]
+      - [ちょっとホッ, Adverb]
+      - [と, Particle]
+      - [している, Verb]
 
 -
   text: こんなに部屋が寒くてはインターネットもままならぬ
   sentences:
     -
+      - [こんなに, Adverb]
       - [部屋, Noun]
+      - [が, Particle]
       - - 寒く
         - Adjective
         - body: 寒い
+      - [は, Particle]
       - [インターネット, Noun]
+      - [も, Particle]
+      - [まま, Adverb]
+      - [ならぬ, Verb]
 
 -
   text: 牛乳って意外と甘い？
   sentences:
     -
       - [牛乳, Noun]
+      - [って, Particle]
+      - [意外と, Adverb]
       - - 甘い
         - Adjective
         - body: 甘い
@@ -49,7 +67,9 @@
   text: むしろ精神的疾患とは……
   sentences:
     -
+      - [むしろ, Adverb]
       - [精神的疾患, Noun]
+      - [とは, Particle]
       - [……, Period]
 
 -
@@ -58,12 +78,16 @@
     -
       - [情報系大学生, Noun]
       - [卒業, Noun]
+      - [までに, Particle]
       - [応用情報レベル, Noun]
+      - [の, Particle]
       - [知識, Noun]
+      - [を, Particle]
       - - 習っている
         - Verb
         - body: 習う
           attributes: [progressive]
+      - [と, Particle]
       - [., Period]
 
 -
@@ -71,12 +95,16 @@
   sentences:
     -
       - [プログラマー, Noun]
+      - [の, Particle]
       - [資格, Noun]
+      - [を, Particle]
       - - 持つ
         - Verb
         - body: 持つ
       - [息子, Noun]
+      - [が, Particle]
       - [面接, Noun]
+      - [に, Particle]
       - [全て, Noun]
       - - 落ちました
         - Verb
@@ -85,40 +113,52 @@
       - [。, Period]
     -
       - [理系, Noun]
+      - [でも, Particle]
       - [旧帝, Noun]
-      - [ダメ, AdjectiveNoun]
+      - [じゃ, Particle]
+      - [ダメ, AdjectivalNoun]
+      - [か, Particle]
       - [？, Period]
 
 -
   text: ちゃんと病院いこうね…。はい…。
   sentences:
     -
+      - [ちゃんと, Adverb]
       - [病院, Noun]
-      - - いこう
+      - - いこうね
         - Verb
         - body: いく
       - […。, Period]
     -
+      - [はい, Interjection]
       - […。, Period]
 
 -
   text: んー、お昼がスープパスタだけとか。。。あふんあふん。。。後で絶対お腹すくなー。でも今あんま食べる気しにゃい。。。
   sentences:
     -
+      - [ん, Particle]
       - [お昼, Noun]
+      - [が, Particle]
       - [スープパスタ, Noun]
+      - [だけとか, Particle]
       - [。。。, Period]
     -
       - [あふん, Verb]
+      - [ふん, Interjection]
       - [。。。, Period]
     -
+      - [後で, Adverb]
       - [絶対, Noun]
       - [お腹, Noun]
       - - すく
         - Adjective
         - body: すい
+      - [なー, Particle]
       - [。, Period]
     -
+      - [でも, Conjunction]
       - [今あんま, Noun]
       - - 食べる
         - Verb
@@ -130,19 +170,24 @@
   text: iPhone 4Sにただで替えられるって聞いたけど、本当に使うかは疑問なので……
   sentences:
     -
-      - [iphone4s, Noun]
+      - [iPhone4S, Noun]
+      - [に, Particle]
       - [ただ, Noun]
+      - [で, Particle]
       - - 替えられる
         - Verb
         - body: 替える
           attributes: [passive]
+      - [って, Particle]
       - - 聞いた
         - Verb
         - body: 聞く
           attributes: [perfective]
-      - - 使う
+      - [本当に, Adverb]
+      - - 使うか
         - Verb
         - body: 使う
+      - [は, Particle]
       - [疑問, Noun]
       - [……, Period]
 
@@ -151,6 +196,8 @@
   sentences:
     -
       - [俺, Pronoun]
+      - [の, Particle]
+      - [に, Particle]
       - - ご奉仕しろ
         - Verb
         - body: 奉仕する
@@ -163,6 +210,7 @@
   sentences:
     -
       - [風, Noun]
+      - [と共に, Particle]
       - - 去らぬ
         - Verb
         - body: 去る

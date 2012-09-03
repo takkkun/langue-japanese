@@ -27,7 +27,14 @@ def structurer_stub
   end
 end
 
-def tagger_stub(nodes = nil)
+def inflector_stub
+  operator_stub('inflector', :Inflector) do |s|
+    s.stub!(:inflect).and_return('value returning from #inflect')
+    yield s if block_given?
+  end
+end
+
+def parser_tagger_stub(nodes = nil)
   stub.tap do |s|
     MeCab::Tagger.stub!(:new).and_return(s)
 
@@ -37,6 +44,14 @@ def tagger_stub(nodes = nil)
       s.stub!(:parseToNode).and_return(make_node('', node))
     end
 
+    yield s if block_given?
+  end
+end
+
+def parser_model_stub(parser_tagger = nil)
+  stub.tap do |s|
+    MeCab::Model.stub!(:create).and_return(s)
+    s.stub!(:createTagger).and_return(parser_tagger || parser_tagger_stub)
     yield s if block_given?
   end
 end
@@ -54,14 +69,19 @@ def parser
   Langue::Japanese::Parser.new
 end
 
+def noun(text)
+  morphemes = parser.parse(text)
+  Langue::Japanese::Noun.new(morphemes)
+end
+
 def adjective(text)
   morphemes = parser.parse(text)
   Langue::Japanese::Adjective.new(morphemes)
 end
 
-def adjective_noun(text)
+def adjectival_noun(text)
   morphemes = parser.parse(text)
-  Langue::Japanese::AdjectiveNoun.new(morphemes)
+  Langue::Japanese::AdjectivalNoun.new(morphemes)
 end
 
 def verb(text)

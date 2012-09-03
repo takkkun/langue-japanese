@@ -2,6 +2,12 @@
 require 'spec_helper'
 require 'langue/japanese/words/adjective'
 
+describe Langue::Japanese::Adjective do
+  it 'inherits Langue::Adjective' do
+    described_class.superclass.should == Langue::Adjective
+  end
+end
+
 describe Langue::Japanese::Adjective, '.take' do
   after do
     @pairs.each do |text, size|
@@ -86,6 +92,15 @@ describe Langue::Japanese::Adjective, '#key_morpheme' do
     it 'returns nil' do
       word = described_class.new
       word.key_morpheme.should be_nil
+    end
+  end
+
+  context 'with word that is not adjective' do
+    it 'raises Langue::Japanese::InvalidWord' do
+      %w(会話 話す).each do |text|
+        word = adjective(text)
+        lambda { word.key_morpheme }.should raise_error(Langue::Japanese::InvalidWord, %("#{text}" is invalid a word as an adjective))
+      end
     end
   end
 end

@@ -2,6 +2,12 @@
 require 'spec_helper'
 require 'langue/japanese/words/period'
 
+describe Langue::Japanese::Period do
+  it 'inherits Langue::Period' do
+    described_class.superclass.should == Langue::Period
+  end
+end
+
 describe Langue::Japanese::Period, '.take' do
   after do
     @pairs.each do |text, size|

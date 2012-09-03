@@ -48,11 +48,11 @@ module Langue
         yomi = morphemes.inject('') do |yomi, morpheme|
           t = morpheme.text
           y = morpheme.yomi
-          yomi + (y || t != 'ー' ? y : t)
+          yomi + (y || t != 'ー' ? (y || '') : t)
         end
 
         pronunciation = morphemes.inject('') do |pronunciation, morpheme|
-          pronunciation + (morpheme.pronunciation)
+          pronunciation + (morpheme.pronunciation || '')
         end
 
         Morpheme.new(

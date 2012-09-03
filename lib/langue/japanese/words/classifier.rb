@@ -20,11 +20,24 @@ module Langue
         :categorematic_verb    => %w(動詞 自立),
         :noncategorematic_verb => %w(動詞 非自立),
 
+        # adverb
+        :adverb => %w(副詞),
+
         # auxiliary verb
         :auxiliary_verb => %w(助動詞),
 
         # particle
+        :particle             => %w(助詞),
         :conjunctive_particle => %w(助詞 接続助詞),
+
+        # conjunction
+        :conjunction => %w(接続詞),
+
+        # determiner
+        :determiner => %w(連体詞),
+
+        # interjection
+        :interjection => %w(感動詞),
 
         # prefix
         :noun_prefix      => %w(接頭詞 名詞接続),
@@ -47,6 +60,13 @@ module Langue
         end
       end
 
+      def final_particle?(morphemes, index)
+        morphemes.at(index) do |m|
+          m.classified?('助詞', '終助詞') ||
+          m.classified?('助詞', '副助詞／並立助詞／終助詞')
+        end
+      end
+
       def first_noun?(morphemes, index)
          noun?(morphemes, index)                  &&
         !pronoun?(morphemes, index)               &&
@@ -57,7 +77,7 @@ module Langue
 
       def first_verb?(morphemes, index)
         categorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
-          !%w(する なる 思う おもう).include?(m.root_form)
+          !%w(思う おもう).include?(m.root_form)
         end
       end
 
@@ -77,8 +97,10 @@ module Langue
       end
 
       def following_verb?(morphemes, index)
-        (noncategorematic_verb?(morphemes, index) || verb_suffix?(morphemes, index)) ||
-        auxiliary_verb?(morphemes, index)
+        noncategorematic_verb?(morphemes, index) ||
+        verb_suffix?(morphemes, index)           ||
+        auxiliary_verb?(morphemes, index)        ||
+        ta_conjunctive_particle?(morphemes, index)
       end
 
       def following_symbol?(morphemes, index)
@@ -90,17 +112,27 @@ module Langue
       end
 
       def body_verb?(morphemes, index)
-        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !progressive_verb?(morphemes, index)
+        categorematic_verb?(morphemes, index) || noncategorematic_verb?(morphemes, index) && !ta_verb?(morphemes, index) && !ra_verb?(morphemes, index)
       end
 
-      def progressive_verb?(morphemes, index)
+      def ta_verb?(morphemes, index)
         noncategorematic_verb?(morphemes, index) && morphemes.at(index) do |m|
           %w(いる てる でる とる どる ちゃう じゃう).include?(m.root_form)
         end
       end
 
+      def ra_verb?(morphemes, index)
+        noncategorematic_verb?(morphemes, index) && morphemes.at(index) { |m| m.inflected?('五段・ラ行特殊') }
+      end
+
       def body_adjective?(morphemes, index)
         categorematic_adjective?(morphemes, index) || noncategorematic_adjective?(morphemes, index)
+      end
+
+      def ta_conjunctive_particle?(morphemes, index)
+        conjunctive_particle?(morphemes, index) && morphemes.at(index) do |m|
+          %w(て で たって).include?(m.root_form)
+        end
       end
     end
   end
